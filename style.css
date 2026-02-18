@@ -32,15 +32,15 @@ body { margin: 0; background: #000; color: white; font-family: 'Rajdhani', sans-
 .card-info { position: absolute; bottom: 20px; left: 20px; z-index: 2; text-align: left; }
 .badge { background: var(--neon-blue); color: black; padding: 3px 10px; border-radius: 10px; font-weight: bold; font-size: 0.7rem; }
 
-/* Grid de Revisão e Aulas */
+/* Grid de Problemas e Aulas */
 .problem-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; width: 100%; margin-top: 20px; }
-.problem-card { background: rgba(0,0,0,0.6); padding: 15px; border-radius: 15px; border-left: 4px solid var(--neon-pink); text-align: left; }
+.problem-card { background: rgba(0,0,0,0.6); padding: 15px; border-radius: 15px; border-left: 4px solid var(--neon-pink); }
 .math-box { font-size: 1.4rem; color: var(--neon-blue); margin-bottom: 8px; }
 
 .mini-aula {
     background: rgba(0, 212, 255, 0.12); padding: 12px; border-radius: 10px;
     font-size: 0.85rem; margin-top: 10px; border: 1px solid rgba(0, 212, 255, 0.2);
-    line-height: 1.4;
+    line-height: 1.4; color: #ddd;
 }
 
 .back-btn { background: var(--neon-blue); border: none; padding: 8px 20px; border-radius: 20px; cursor: pointer; font-family: 'Orbitron'; font-weight: bold; }
