@@ -11,19 +11,23 @@
 <body>
     <div id="comet-transition"></div>
 
-    <div id="youtube-player" style="display: none;">
+    <div id="youtube-players" style="display: none;">
+        <iframe id="comet-effect" width="0" height="0" 
+            src="https://www.youtube.com/embed/or0pYLd8kxE?enablejsapi=1" 
+            frameborder="0"></iframe>
+        
         <iframe id="video-music" width="0" height="0" 
             src="https://www.youtube.com/embed/UDVtMYqUAyw?enablejsapi=1&loop=1&playlist=UDVtMYqUAyw" 
-            frameborder="0" allow="autoplay"></iframe>
+            frameborder="0"></iframe>
     </div>
 
     <div id="canvas-container"></div>
 
     <div class="floating-elements">
-        <div class="formula" style="top: 10%; left: 10%;">E = mc²</div>
-        <div class="formula" style="top: 20%; right: 15%;">F = m · a</div>
-        <div class="formula" style="bottom: 15%; left: 15%;">Δp = F · Δt</div>
-        <div class="formula" style="bottom: 25%; right: 10%;">τ = rF senθ</div>
+        <div class="formula" style="top: 15%; left: 8%;">E = mc²</div>
+        <div class="formula" style="top: 25%; right: 12%;">F = m · a</div>
+        <div class="formula" style="bottom: 20%; left: 12%;">Δp = F · Δt</div>
+        <div class="formula" style="bottom: 30%; right: 8%;">τ = rF senθ</div>
         <div class="planet planet-1"></div>
         <div class="planet planet-2"></div>
     </div>
