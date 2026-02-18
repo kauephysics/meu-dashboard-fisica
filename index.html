@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Physics Alpha | Dashboard</title>
+    <title>Físico de Elite | Dashboard</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
-    <div id="player" style="display:none"></div>
+    <audio id="bg-music" loop>
+        <source src="musica.mp3" type="audio/mpeg">
+    </audio>
+
     <div id="canvas-container"></div>
 
     <div id="home-screen" class="screen active">
@@ -17,7 +20,7 @@
         
         <div class="level-selector">
             <div class="level-card" onclick="goToModule('pre-calculo')">
-                <img src="img/walter_lewin.jfif" class="card-bg">
+                <img src="imagem/walter_lewin.jfif" class="card-bg">
                 <div class="card-info">
                     <span>NÍVEL 01</span>
                     <h2>Pré-Cálculo & Vetores</h2>
@@ -25,7 +28,7 @@
             </div>
 
             <div class="level-card" onclick="goToModule('cinematica')">
-                <img src="img/oppenheimer.jfif" class="card-bg">
+                <img src="imagem/oppenheimer.jfif" class="card-bg">
                 <div class="card-info">
                     <span>NÍVEL 02</span>
                     <h2>Cinemática (Cálculo)</h2>
@@ -36,7 +39,7 @@
 
     <div id="module-screen" class="screen">
         <div class="module-layout">
-            <button class="back-btn" onclick="goHome()">← VOLTAR</button>
+            <button class="back-btn" onclick="goHome()">← VOLTAR AO HUB</button>
             <div id="module-content"></div>
         </div>
     </div>
