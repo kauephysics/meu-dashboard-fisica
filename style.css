@@ -28,15 +28,16 @@ body { margin: 0; background: #000; color: white; font-family: 'Rajdhani', sans-
 #atom-canvas-container { position: absolute; width: 100%; height: 100%; top: 0; pointer-events: none; z-index: 1; }
 .card-info { position: absolute; bottom: 20px; left: 20px; z-index: 2; text-align: left; }
 
-.floating-math { font-size: 1.8rem; margin: 20px; color: rgba(255,255,255,0.5); }
+.formula-footer { display: flex; gap: 40px; margin-top: 30px; }
+.floating-math { font-size: 1.8rem; color: rgba(255,255,255,0.5); }
 
-/* Grid de Problemas - Corrigido para não bugar o texto */
+/* Grid de Problemas - Correção para exibir texto e fórmulas juntos */
 .problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; width: 100%; margin-top: 20px; }
 .problem-card { background: rgba(0,0,0,0.5); padding: 15px; border-radius: 12px; border-top: 3px solid var(--neon-pink); }
-.math-box { font-size: 1.2rem; color: var(--neon-blue); margin-bottom: 8px; min-height: 30px; }
-.problem-text { font-size: 0.85rem; color: #fff; line-height: 1.4; }
+.math-box { font-size: 1.2rem; color: var(--neon-blue); margin-bottom: 8px; min-height: 35px; }
+.problem-text { font-size: 0.85rem; color: #fff; line-height: 1.4; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 8px; }
 
-.back-btn { background: var(--neon-blue); border: none; padding: 8px 20px; border-radius: 20px; cursor: pointer; font-family: 'Orbitron'; font-weight: bold; margin-bottom: 20px; }
+.back-btn { background: var(--neon-blue); border: none; padding: 8px 20px; border-radius: 20px; cursor: pointer; font-family: 'Orbitron'; font-weight: bold; margin-bottom: 20px; color: black; }
 
 #comet-transition { position: fixed; top: 0; left: -150%; width: 150%; height: 100%; background: linear-gradient(90deg, transparent, var(--neon-blue), transparent); z-index: 9999; }
 .comet-active { animation: cometMove 0.8s ease-in-out forwards; }
