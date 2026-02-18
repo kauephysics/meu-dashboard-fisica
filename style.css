@@ -8,29 +8,38 @@ body { margin: 0; background: #000; color: white; font-family: 'Rajdhani', sans-
 #canvas-container { position: fixed; top: 0; left: 0; z-index: -1; }
 
 .screen { display: none; width: 100vw; height: 100vh; align-items: center; justify-content: center; position: absolute; }
-.screen.active { display: flex; }
+.screen.active { display: flex; animation: fadeIn 0.5s ease; }
 
 .glass-main {
-    width: 85%; max-width: 900px; padding: 40px;
-    background: var(--glass); backdrop-filter: blur(15px);
-    border-radius: 25px; border: 1px solid rgba(255,255,255,0.1);
-    text-align: center;
+    width: 85%; max-width: 900px; padding: 40px; background: var(--glass);
+    backdrop-filter: blur(20px); border-radius: 30px; border: 1px solid rgba(255,255,255,0.1);
+    display: flex; flex-direction: column; align-items: center; box-shadow: 0 0 30px rgba(0, 212, 255, 0.05);
 }
 
-.neon-title { font-family: 'Orbitron'; font-size: 3rem; color: var(--neon-blue); text-shadow: 0 0 10px var(--neon-blue); margin: 0; }
-.subtitle { opacity: 0.6; letter-spacing: 2px; margin-bottom: 30px; }
+.neon-title { font-family: 'Orbitron'; font-size: 3rem; color: var(--neon-blue); text-shadow: 0 0 15px var(--neon-blue); margin: 0; }
+.neon-title-small { font-family: 'Orbitron'; font-size: 1.5rem; color: var(--neon-blue); }
+.subtitle { opacity: 0.6; letter-spacing: 3px; margin-bottom: 30px; }
 
 .level-card {
-    width: 320px; height: 200px; background: rgba(255,255,255,0.05);
-    border-radius: 20px; border: 1px solid var(--neon-blue);
-    margin: 0 auto; cursor: pointer; position: relative; overflow: hidden;
+    width: 350px; height: 220px; background: rgba(0,0,0,0.6); border-radius: 20px;
+    border: 1px solid var(--neon-blue); position: relative; overflow: hidden; transform-style: preserve-3d;
 }
 
-.formula-footer { display: flex; justify-content: center; gap: 40px; margin-top: 40px; font-size: 1.5rem; }
+#atom-canvas-container { position: absolute; width: 100%; height: 100%; top: 0; pointer-events: none; z-index: 1; }
+.card-info { position: absolute; bottom: 20px; left: 20px; z-index: 2; text-align: left; }
 
-/* Grid de Problemas */
-.problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px; }
-.problem-card { background: rgba(0,0,0,0.3); padding: 20px; border-radius: 15px; border-left: 4px solid var(--neon-pink); text-align: left; }
-.math-box { font-size: 1.2rem; color: var(--neon-blue); margin-bottom: 10px; }
+.formula-footer { display: flex; gap: 50px; margin-top: 40px; }
+.floating-math { font-size: 1.8rem; animation: float 4s ease-in-out infinite; color: rgba(255,255,255,0.8); }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
-.back-btn { background: var(--neon-blue); border: none; padding: 5px 15px; border-radius: 20px; font-weight: bold; cursor: pointer; }
+/* Grid de Revisão */
+.problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; width: 100%; margin-top: 20px; }
+.problem-card { background: rgba(0,0,0,0.4); padding: 20px; border-radius: 15px; border-top: 2px solid var(--neon-pink); }
+.math-box { font-size: 1.3rem; color: var(--neon-blue); margin-bottom: 10px; }
+
+.back-btn { background: var(--neon-blue); border: none; padding: 8px 20px; border-radius: 20px; font-weight: bold; cursor: pointer; color: black; font-family: 'Orbitron'; font-size: 0.7rem; }
+
+/* Transição Cometa */
+#comet-transition { position: fixed; top: 0; left: -150%; width: 150%; height: 100%; background: linear-gradient(90deg, transparent, var(--neon-blue), transparent); z-index: 9999; }
+.comet-active { animation: cometMove 0.8s ease-in-out forwards; }
+@keyframes cometMove { 0% { left: -150%; } 100% { left: 150%; } }
