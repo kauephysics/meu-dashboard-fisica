@@ -1,4 +1,4 @@
-// Configuração do Fundo de Estrelas (Three.js)
+// --- FUNDO ESTELAR ---
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({alpha: true});
@@ -11,39 +11,65 @@ for(let i=0; i<5000; i++) {
     vertices.push(THREE.MathUtils.randFloatSpread(2000), THREE.MathUtils.randFloatSpread(2000), THREE.MathUtils.randFloatSpread(2000));
 }
 geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
-const stars = new THREE.Points(geometry, new THREE.PointsMaterial({color: 0xffffff, size: 0.7}));
+const stars = new THREE.Points(geometry, new THREE.PointsMaterial({color: 0xffffff, size: 0.8}));
 scene.add(stars);
 camera.position.z = 1;
 
 function animate() {
     requestAnimationFrame(animate);
-    stars.rotation.y += 0.001;
+    stars.rotation.y += 0.0004;
     renderer.render(scene, camera);
 }
 animate();
 
-// Navegação entre Módulos
+// --- LÓGICA DO DASHBOARD ---
 function goToModule(id) {
+    // Iniciar Música
+    const music = document.getElementById('bg-music');
+    music.play().catch(() => console.log("Clique na tela para o som ativar"));
+
     document.getElementById('home-screen').classList.remove('active');
     document.getElementById('module-screen').classList.add('active');
+    
     const content = document.getElementById('module-content');
     
     if(id === 'pre-calculo') {
         content.innerHTML = `
-            <h2 style="color: #00d4ff">Módulo 01: Pré-Cálculo</h2>
-            <p>Foco: Decomposição de Vetores e Trigonometria.</p>
-            <div style="background: rgba(0,212,255,0.1); padding: 15px; border-left: 5px solid #00d4ff;">
-                <code>V_x = V * cos(θ)</code><br>
-                <code>V_y = V * sen(θ)</code>
-            </div>
-        `;
-    } else if(id === 'cinematica') {
-        content.innerHTML = `
-            <h2 style="color: #00d4ff">Módulo 02: Cinemática</h2>
-            <p>Foco: Derivadas de Posição e Velocidade.</p>
-            <div style="background: rgba(0,212,255,0.1); padding: 15px; border-left: 5px solid #00d4ff;">
-                <code>v(t) = ds/dt</code><br>
-                <code>a(t) = dv/dt</code>
+            <div class="dashboard-wrapper">
+                <div class="header-stats">
+                    <div>
+                        <small>CONTAGEM REGRESSIVA</small>
+                        <div class="timer-box"><span>00:23</span></div>
+                    </div>
+                    <h1 style="font-family:Orbitron; font-size: 1.5rem;">NÍVEIS DE FÍSICA</h1>
+                </div>
+
+                <div class="atom-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Stylised_Lithium_Atom.svg" class="atom-svg">
+                </div>
+
+                <div class="grid-main">
+                    <div class="content-block highlight-card">
+                        <img src="imagem/walter_lewin.jfif" style="width:100%; border-radius:5px; margin-bottom:15px; opacity:0.8">
+                        <h2 style="color:var(--neon-blue); font-family:Orbitron; font-size:1rem;">Nível 1: Pré-Cálculo</h2>
+                        <p style="font-size:0.9rem; opacity:0.8">"A Física funciona! Vamos explorar as bases matemáticas."</p>
+                    </div>
+
+                    <div class="content-block">
+                        <h3 style="border-bottom:1px solid #333; padding-bottom:10px">Conceitos e Fórmulas</h3>
+                        <div class="formula-grid">
+                            <div class="formula-item">V<sub>x</sub> = V · cos(θ)</div>
+                            <div class="formula-item">V<sub>y</sub> = V · sen(θ)</div>
+                            <div class="formula-item">tan(θ) = V<sub>y</sub> / V<sub>x</sub></div>
+                            <div class="formula-item">|V| = √(V<sub>x</sub>² + V<sub>y</sub>²)</div>
+                        </div>
+                        <div style="margin-top:20px; font-size:0.8rem; line-height:1.6">
+                            <p>• O Plano Cartesiano (x, y, z)</p>
+                            <p>• Ciclo Trigonométrico</p>
+                            <p>• Funções Potência e Log</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         `;
     }
@@ -53,10 +79,3 @@ function goHome() {
     document.getElementById('module-screen').classList.remove('active');
     document.getElementById('home-screen').classList.add('active');
 }
-
-// Ajuste de janela
-window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-});
