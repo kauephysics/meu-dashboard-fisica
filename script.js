@@ -1,4 +1,4 @@
-// --- SISTEMA 3D ---
+// --- SISTEMA 3D E ANIMAÇÃO ---
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({alpha: true});
@@ -12,7 +12,6 @@ const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({color: 0xfffff
 scene.add(stars);
 camera.position.z = 1;
 
-// --- ÁTOMO NO CARD ---
 const atomScene = new THREE.Scene();
 const atomCam = new THREE.PerspectiveCamera(45, 1.6, 0.1, 100);
 const atomRenderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
@@ -54,37 +53,38 @@ function handleCard3D(e) {
 }
 function resetCard3D() { document.getElementById('main-card').style.transform = 'rotateX(0deg) rotateY(0deg)'; }
 
-// --- RENDERIZAÇÃO DAS AULAS ---
+// --- RENDERIZAÇÃO DA AULA (PASSO A PASSO) ---
 function renderModule() {
     const mod = document.getElementById('module-screen');
     mod.innerHTML = `
         <div class="glass-main" style="max-height: 90vh; overflow-y: auto;">
-            <header style="display:flex; justify-content:space-between; width:100%; align-items:center; margin-bottom:20px;">
-                <h2 style="font-family:'Orbitron'; color:var(--neon-blue); font-size: 1.1rem;">AULA ATIVA: NÍVEL 1</h2>
-                <button class="back-btn" onclick="triggerComet('home')">← VOLTAR</button>
+            <header style="display:flex; justify-content:space-between; width:100%; align-items:center; margin-bottom: 20px;">
+                <h2 style="font-family:'Orbitron'; color:var(--neon-blue);">AULA INTERATIVA</h2>
+                <button class="back-btn" onclick="triggerComet('home')" style="background:var(--neon-blue); border:none; padding:10px; border-radius:10px; cursor:pointer;">← VOLTAR</button>
             </header>
             
             <div class="problem-grid">
-                <div class="problem-card">
+                <div class="problem-card" style="margin-bottom:20px;">
                     <div id="m1" class="math-box"></div>
-                    <p><strong>Drone:</strong> Parte de 10m a 5m/s. Em quanto tempo chega em 60m?</p>
-                    <div class="mini-aula">
-                        <b style="color:var(--neon-blue)">COMO RESOLVER:</b><br>
-                        1. Use a fórmula ao lado. <b>S</b> é o destino (60), <b>S₀</b> é o início (10).<br>
-                        2. A conta fica: 60 = 10 + 5t.<br>
-                        3. 50 = 5t → <b>t = 10 segundos.</b>
+                    <p><strong>Desafio Drone:</strong> Um drone parte da posição 10m com velocidade de 5m/s. Em quanto tempo chega em 60m?</p>
+                    <div class="mini-aula" style="background:rgba(0,212,255,0.1); padding:15px; border-radius:10px; margin-top:10px; border:1px solid var(--neon-blue);">
+                        <b style="color:var(--neon-blue)">MINI AULA:</b><br>
+                        1. <b>S</b> é o destino final (60m).<br>
+                        2. <b>S₀</b> é onde tudo começou (10m).<br>
+                        3. <b>v</b> é a velocidade constante (5m/s).<br>
+                        4. <b>Equação:</b> 60 = 10 + 5t. Subtraia 10 de 60 e divida por 5.
                     </div>
                 </div>
 
                 <div class="problem-card">
                     <div id="m2" class="math-box"></div>
-                    <p><strong>Plano Inclinado:</strong> Bloco de 100N em 30°. Calcule Px.</p>
-                    <div class="mini-aula">
-                        <b style="color:var(--neon-pink)">COMO RESOLVER:</b><br>
-                        1. <b>P</b> é o peso (100N).<br>
-                        2. <b>sen(30°)</b> vale 0,5.<br>
-                        3. Multiplique P pelo seno: 100 × 0,5.<br>
-                        4. <b>Px = 50N.</b> Esta é a força que puxa o bloco.
+                    <p><strong>Plano Inclinado:</strong> Um bloco de 100N está num plano de 30°. Qual a força Px?</p>
+                    <div class="mini-aula" style="background:rgba(255,0,204,0.1); padding:15px; border-radius:10px; margin-top:10px; border:1px solid var(--neon-pink);">
+                        <b style="color:var(--neon-pink)">MINI AULA:</b><br>
+                        1. <b>P</b> é o Peso total do bloco (100N).<br>
+                        2. <b>θ</b> é a inclinação (30°).<br>
+                        3. <b>Px</b> é a componente que faz o bloco descer.<br>
+                        4. <b>Cálculo:</b> Como sen(30°) = 0.5, multiplique 100 x 0.5.
                     </div>
                 </div>
             </div>
