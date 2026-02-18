@@ -41,91 +41,56 @@ body {
     text-align: center;
 }
 
-/* CARDS DA HOME */
 .level-selector { display: flex; gap: 30px; flex-wrap: wrap; justify-content: center; }
+
 .level-card {
     width: 280px; height: 380px; border: 2px solid var(--neon-blue);
     border-radius: 15px; position: relative; overflow: hidden; cursor: pointer; transition: 0.4s;
 }
+
 .level-card:hover { transform: scale(1.05); box-shadow: 0 0 25px var(--neon-blue); }
+
 .card-bg { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
+
 .card-info { position: absolute; bottom: 15px; left: 15px; font-family: 'Orbitron'; }
 
-/* ESTILO DASHBOARD CIENTÍFICO */
-.dashboard-wrapper {
-    width: 100%;
-    max-width: 1100px;
-    margin: 0 auto;
-}
+/* ESTILO DO MODELO DASHBOARD */
+.dashboard-wrapper { width: 100%; max-width: 1100px; margin: 0 auto; }
 
 .header-stats {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;
 }
 
 .timer-box {
-    background: rgba(0, 212, 255, 0.1);
-    border: 1px solid var(--neon-blue);
-    padding: 10px 20px;
-    border-radius: 5px;
+    background: rgba(0, 212, 255, 0.1); border: 1px solid var(--neon-blue);
+    padding: 10px 20px; border-radius: 5px;
 }
 
 .timer-box span { color: var(--neon-blue); font-weight: bold; font-size: 1.5rem; }
 
-.atom-container {
-    text-align: center;
-    margin-bottom: 40px;
-}
+.atom-container { text-align: center; margin-bottom: 40px; }
 
-.atom-svg {
-    width: 120px;
-    animation: rotate 20s linear infinite;
-}
+.atom-svg { width: 120px; animation: rotate 20s linear infinite; }
 
-.grid-main {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 20px;
-}
+.grid-main { display: grid; grid-template-columns: 1fr 2fr; gap: 20px; }
 
 .content-block {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(0, 212, 255, 0.2);
-    padding: 20px;
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(0, 212, 255, 0.2);
+    padding: 20px; border-radius: 8px;
 }
 
-.highlight-card {
-    border: 2px solid var(--neon-blue);
-    box-shadow: inset 0 0 15px rgba(0, 212, 255, 0.2);
-}
+.highlight-card { border: 2px solid var(--neon-blue); box-shadow: inset 0 0 15px rgba(0, 212, 255, 0.2); }
 
-.formula-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    margin-top: 20px;
-}
+.formula-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
 
 .formula-item {
-    background: rgba(0, 255, 204, 0.05);
-    border-left: 3px solid var(--neon-green);
-    padding: 15px;
-    font-family: 'Orbitron';
-    color: var(--neon-green);
+    background: rgba(0, 255, 204, 0.05); border-left: 3px solid var(--neon-green);
+    padding: 15px; font-family: 'Orbitron'; color: var(--neon-green);
 }
 
 .back-btn {
-    background: none;
-    border: 1px solid var(--neon-blue);
-    color: var(--neon-blue);
-    padding: 10px 25px;
-    cursor: pointer;
-    font-family: 'Orbitron';
-    margin-bottom: 30px;
-    transition: 0.3s;
+    background: none; border: 1px solid var(--neon-blue); color: var(--neon-blue);
+    padding: 10px 25px; cursor: pointer; font-family: 'Orbitron'; margin-bottom: 30px; transition: 0.3s;
 }
 
 .back-btn:hover { background: var(--neon-blue); color: black; }
