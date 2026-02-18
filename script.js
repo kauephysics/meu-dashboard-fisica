@@ -1,4 +1,4 @@
-// --- FUNDO ESTELAR ---
+// --- FUNDO ESTELAR (THREE.JS) ---
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({alpha: true});
@@ -26,7 +26,9 @@ animate();
 function goToModule(id) {
     // Iniciar Música
     const music = document.getElementById('bg-music');
-    music.play().catch(() => console.log("Clique na tela para o som ativar"));
+    if(music) {
+        music.play().catch(() => console.log("Aguardando clique para som"));
+    }
 
     document.getElementById('home-screen').classList.remove('active');
     document.getElementById('module-screen').classList.add('active');
@@ -50,7 +52,7 @@ function goToModule(id) {
 
                 <div class="grid-main">
                     <div class="content-block highlight-card">
-                        <img src="imagem/walter_lewin.jfif" style="width:100%; border-radius:5px; margin-bottom:15px; opacity:0.8">
+                        <img src="img/walter_lewin.jfif" style="width:100%; border-radius:5px; margin-bottom:15px; opacity:0.8">
                         <h2 style="color:var(--neon-blue); font-family:Orbitron; font-size:1rem;">Nível 1: Pré-Cálculo</h2>
                         <p style="font-size:0.9rem; opacity:0.8">"A Física funciona! Vamos explorar as bases matemáticas."</p>
                     </div>
@@ -58,10 +60,10 @@ function goToModule(id) {
                     <div class="content-block">
                         <h3 style="border-bottom:1px solid #333; padding-bottom:10px">Conceitos e Fórmulas</h3>
                         <div class="formula-grid">
-                            <div class="formula-item">V<sub>x</sub> = V · cos(θ)</div>
-                            <div class="formula-item">V<sub>y</sub> = V · sen(θ)</div>
-                            <div class="formula-item">tan(θ) = V<sub>y</sub> / V<sub>x</sub></div>
-                            <div class="formula-item">|V| = √(V<sub>x</sub>² + V<sub>y</sub>²)</div>
+                            <div class="formula-item">Vx = V · cos(θ)</div>
+                            <div class="formula-item">Vy = V · sen(θ)</div>
+                            <div class="formula-item">tan(θ) = Vy / Vx</div>
+                            <div class="formula-item">|V| = √(Vx² + Vy²)</div>
                         </div>
                         <div style="margin-top:20px; font-size:0.8rem; line-height:1.6">
                             <p>• O Plano Cartesiano (x, y, z)</p>
@@ -79,3 +81,9 @@ function goHome() {
     document.getElementById('module-screen').classList.remove('active');
     document.getElementById('home-screen').classList.add('active');
 }
+
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+});
