@@ -1,4 +1,4 @@
-// --- SISTEMA DE ESTRELAS ---
+// --- BACKGROUND DE ESTRELAS (THREE.JS) ---
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({alpha: true});
@@ -22,11 +22,10 @@ function animate() {
 }
 animate();
 
-// --- NAVEGAÇÃO E CONTEÚDO ---
+// --- LÓGICA DO DASHBOARD ---
 function goToModule(id) {
     const iframe = document.getElementById('video-music');
     if (iframe) {
-        // Inicia o vídeo e define o volume para 20%
         iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
         iframe.contentWindow.postMessage('{"event":"command","func":"setVolume","args":[20]}', '*');
     }
@@ -40,44 +39,39 @@ function goToModule(id) {
             <div class="dashboard-wrapper">
                 <button class="back-btn" onclick="goHome()">← VOLTAR AO MENU</button>
                 
-                <div class="header-stats">
-                    <h1 style="font-family:Orbitron; color:var(--neon-blue); margin:0;">NÍVEL 1: FUNÇÕES E TRIGONOMETRIA</h1>
-                </div>
+                <h1 style="font-family:Orbitron; color:var(--neon-blue); margin-bottom:20px;">ROTEIRO DE REVISÃO PRÉ-CÁLCULO</h1>
 
                 <div class="grid-main">
-                    <div class="content-block highlight-card">
-                        <img src="img/walter_lewin.jfif" style="width:100%; border-radius:5px; margin-bottom:15px; opacity:0.9">
-                        <h2 style="color:var(--neon-blue); font-family:Orbitron; font-size:1.1rem;">Roteiro de Elite</h2>
-                        <p style="font-size:0.85rem;">Domine as funções para descrever o movimento e a trigonometria para decompor o universo.</p>
+                    <div class="content-block">
+                        <h3 style="color:var(--neon-blue); font-family:Orbitron;">1. Funções (Essencial)</h3>
+                        <p>Dominar como as variáveis se comportam:</p>
+                        <ul style="line-height:1.6; font-size:0.9rem;">
+                            <li>• <b>Linear (1º Grau):</b> $f(x) = ax + b$ (Velocidade Constante)</li>
+                            <li>• <b>Quadrática (2º Grau):</b> $f(x) = ax^2 + bx + c$ (Aceleração)</li>
+                            <li>• <b>Exponencial:</b> Decaimento e crescimento.</li>
+                        </ul>
+                        
+                        <h3 style="color:var(--neon-blue); font-family:Orbitron; margin-top:20px;">2. Trigonometria</h3>
+                        <p>A base para vetores e ondas:</p>
+                        <ul style="line-height:1.6; font-size:0.9rem;">
+                            <li>• Ciclo Trigonométrico (Radianos)</li>
+                            <li>• Seno e Cosseno na decomposição de forças.</li>
+                            <li>• Identidade: $sen^2(x) + cos^2(x) = 1$</li>
+                        </ul>
                     </div>
 
                     <div class="content-block">
-                        <h3 style="color:var(--neon-green); font-family:Orbitron; border-bottom:1px solid #333; padding-bottom:10px;">Material de Estudo</h3>
-                        
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; font-size: 0.9rem;">
-                            <div>
-                                <h4 style="color:var(--neon-blue);">1. Funções</h4>
-                                <ul style="list-style: none; padding: 0; line-height: 1.6;">
-                                    <li>• <b>1º Grau:</b> Gráficos lineares e MU.</li>
-                                    <li>• <b>2º Grau:</b> Parábolas e MUV.</li>
-                                    <li>• <b>Análise:</b> Raízes e Vértices.</li>
-                                </ul>
-                            </div>
-                            <div>
-                                <h4 style="color:var(--neon-blue);">2. Trigonometria</h4>
-                                <ul style="list-style: none; padding: 0; line-height: 1.6;">
-                                    <li>• <b>Triângulo:</b> Seno, Cosseno e Tangente.</li>
-                                    <li>• <b>Círculo:</b> Graus vs Radianos.</li>
-                                    <li>• <b>Vetores:</b> Decomposição em X e Y.</li>
-                                </ul>
-                            </div>
+                        <h3 style="color:var(--neon-green); font-family:Orbitron;">Fórmulas para Memorizar</h3>
+                        <div class="formula-grid">
+                            <div class="formula-item">sen(θ) = Oposto/Hip</div>
+                            <div class="formula-item">cos(θ) = Adj/Hip</div>
+                            <div class="formula-item">y - y0 = m(x - x0)</div>
+                            <div class="formula-item">x = [-b ± √Δ] / 2a</div>
                         </div>
 
-                        <div class="formula-grid">
-                            <div class="formula-item">sen²(θ) + cos²(θ) = 1</div>
-                            <div class="formula-item">f(x) = ax + b</div>
-                            <div class="formula-item">tg(θ) = sen/cos</div>
-                            <div class="formula-item">|V| = √(Vx² + Vy²)</div>
+                        <div style="margin-top:30px; padding:15px; background:rgba(0,212,255,0.1); border-radius:10px;">
+                            <h4 style="margin:0; color:var(--neon-blue);">Dica do Físico:</h4>
+                            <p style="font-size:0.9rem; margin-top:10px;">Foque em entender **gráficos**. Na faculdade de Física, você raramente fará contas apenas com números; você descreverá fenômenos através de curvas e inclinações.</p>
                         </div>
                     </div>
                 </div>
