@@ -19,45 +19,27 @@
     <div id="canvas-container"></div>
 
     <div id="home-screen" class="screen active">
-        <div class="glass-container">
-            <header class="glass-header">
-                <div class="logo">O2<span>®</span></div>
-                <nav>
-                    <span>FÍSICA</span>
-                    <span>CÁLCULO</span>
-                    <span>VETORES</span>
-                </nav>
-                <div class="login-btn">Entrar</div>
-            </header>
+        <div class="glass-main">
+            <h1 class="neon-title">Físico de Elite</h1>
+            <p class="subtitle">Revisão Essencial para o Ensino Superior</p>
 
-            <main class="glass-content">
-                <div class="left-panel">
-                    <h1 class="neon-title">Físico de<br>Elite</h1>
-                    <p class="subtitle">Revisão Essencial Pré-Faculdade</p>
-                    
-                    <div class="card-3d-wrap" onmousemove="handleCard3D(event)" onmouseleave="resetCard3D()">
-                        <div class="level-card" id="main-card" onclick="triggerComet('pre-calculo')">
-                            <img src="img/walter_lewin.jfif" class="card-img-bg">
-                            <div id="atom-canvas-container"></div> <div class="card-info">
-                                <span class="badge">NÍVEL 01</span>
-                                <h2>Funções & Trigonometria</h2>
-                            </div>
+            <div class="main-content">
+                <div class="card-3d-wrap" onmousemove="handleCard3D(event)" onmouseleave="resetCard3D()">
+                    <div class="level-card" id="main-card" onclick="triggerComet('pre-calculo')">
+                        <img src="img/walter_lewin.jfif" class="card-img-bg">
+                        <div id="atom-canvas-container"></div> 
+                        <div class="card-info">
+                            <span class="badge">NÍVEL 01</span>
+                            <h2>Funções & Trigonometria</h2>
+                            <p>Clique para iniciar a jornada</p>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="right-panel">
-                    <div class="big-number">01</div>
-                    <div class="theory-box">
-                        <h3>Fundamentos</h3>
-                        <p>Domine a matemática que descreve o universo antes de entrar no laboratório.</p>
-                        <div class="formula-display">
-                            <span>E = mc²</span>
-                            <span>F = G (m₁m₂)/r²</span>
-                        </div>
-                    </div>
-                </div>
-            </main>
+            <div class="formula-floating f-1">$E = mc^2$</div>
+            <div class="formula-floating f-2">$F = G \frac{m_1 m_2}{r^2}$</div>
+            <div class="formula-floating f-3">$\nabla \cdot \mathbf{E} = \frac{\rho}{\epsilon_0}$</div>
         </div>
     </div>
 
