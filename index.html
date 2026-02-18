@@ -19,16 +19,16 @@
     <div id="home-screen" class="screen active">
         <div class="glass-main">
             <h1 class="neon-title">Físico de Elite</h1>
-            <p class="subtitle">Revisão Essencial Médio → Superior</p>
+            <p class="subtitle">Revisão Médio → Superior</p>
             
             <div class="main-content">
                 <div class="card-3d-wrap" onmousemove="handleCard3D(event)" onmouseleave="resetCard3D()">
                     <div class="level-card" id="main-card" onclick="triggerComet('module')">
                         <div id="atom-canvas-container"></div> 
                         <div class="card-info">
-                            <span class="badge">NÍVEL 01</span>
+                            <span class="badge">SISTEMA ATIVO</span>
                             <h2>Dashboard de Estudo</h2>
-                            <p>Clique para acessar os problemas</p>
+                            <p>Toque para abrir os problemas</p>
                         </div>
                     </div>
                 </div>
@@ -44,18 +44,18 @@
     <div id="module-screen" class="screen">
         <div class="glass-main revision-container">
             <header class="header-rev">
-                <h2 class="neon-title-small">REVISÃO ATIVA</h2>
+                <h2 class="neon-title-small">CADERNO DE EXERCÍCIOS</h2>
                 <button class="back-btn" onclick="triggerComet('home')">← VOLTAR</button>
             </header>
             
             <div class="problem-grid">
                 <div class="problem-card">
                     <div id="p1-math" class="math-box"></div>
-                    <p><strong>Drone:</strong> Parte de $10m$ a $5m/s$. Tempo para chegar em $60m$?</p>
+                    <p><strong>Drone:</strong> Parte de $S_0=10m$ a $5m/s$. Tempo para chegar em $60m$?</p>
                 </div>
                 <div class="problem-card">
                     <div id="p2-math" class="math-box"></div>
-                    <p><strong>Lançamento:</strong> $v_0 = 20m/s$. Qual a altura máxima ($S = v_0t - 5t^2$)?</p>
+                    <p><strong>Lançamento:</strong> $v_0 = 20m/s$. Altura máxima ($S = v_0t - 5t^2$)?</p>
                 </div>
                 <div class="problem-card">
                     <div id="p3-math" class="math-box"></div>
