@@ -1,20 +1,65 @@
-<div class="subject-card" onclick="playSound()">
-    <img src="https://images.unsplash.com/photo-1632571485142-dca0f3c12086?w=200" alt="Math">
-    <div class="info">
-        <h3>Pré-Cálculo & Vetores</h3>
-        <p>Estudar: Decomposição de $\vec{V}$ e Identidades Trigonométricas.</p>
-        <div class="tags">
-            <span class="tag">Urgente</span>
-            <input type="checkbox" class="task" onchange="updateProgress()">
-        </div>
-    </div>
-</div>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics Alpha | Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body class="dark-theme">
 
-<div class="subject-card" onclick="playSound()">
-    <img src="https://images.unsplash.com/photo-1614935151651-0bea6508db6b?w=200" alt="Fisica">
-    <div class="info">
-        <h3>Cinemática Escalar (Cálculo)</h3>
-        <p>Relacionar $v = \frac{ds}{dt}$ e $a = \frac{dv}{dt}$.</p>
-        <input type="checkbox" class="task" onchange="updateProgress()">
+    <div class="container">
+        <header>
+            <h1>PROJETO: <span class="highlight">FÍSICO DE ELITE</span></h1>
+            <div class="timer-box">
+                <p>🚀 Lançamento das aulas em:</p>
+                <div id="countdown">--d --h --m --s</div>
+            </div>
+        </header>
+
+        <section class="stats">
+            <h3>Nível de Preparação</h3>
+            <div class="progress-bar">
+                <div class="progress" id="main-progress" style="width: 0%"></div>
+            </div>
+        </section>
+
+        <main class="grid">
+            <div class="subject-card" onclick="playSound()">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=300" alt="Math">
+                </div>
+                <div class="info">
+                    <span class="badge">Nível 1</span>
+                    <h3>Pré-Cálculo & Vetores</h3>
+                    <p>Decomposição de \(\vec{V}\) e Identidades Trigonométricas.</p>
+                    <label class="checkbox-container"> Marcar como concluído
+                        <input type="checkbox" class="task" onchange="updateProgress()">
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="subject-card" onclick="playSound()">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1614935151651-0bea6508db6b?w=300" alt="Física">
+                </div>
+                <div class="info">
+                    <span class="badge">Nível 2</span>
+                    <h3>Cinemática (Cálculo)</h3>
+                    <p>Relacionar \(v = \frac{ds}{dt}\) e \(a = \frac{dv}{dt}\).</p>
+                    <label class="checkbox-container"> Marcar como concluído
+                        <input type="checkbox" class="task" onchange="updateProgress()">
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+            </div>
+        </main>
     </div>
-</div>
+
+    <audio id="click-sound" src="https://www.soundjay.com/buttons/sounds/button-10.mp3"></audio>
+    <script src="script.js"></script>
+</body>
+</html>
