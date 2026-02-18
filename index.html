@@ -2,50 +2,32 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Física Alfa | Painel Elite</title>
+    <title>Physics Alpha</title>
     <link rel="stylesheet" href="estilo.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        /* CSS de emergência caso o arquivo estilo.css falhe */
+        body { background-color: #000 !important; color: white; margin: 0; }
+        #canvas-container { position: fixed; top: 0; z-index: -1; }
+    </style>
 </head>
 <body>
-    <div id="player" style="display:none"></div>
     <div id="canvas-container"></div>
-
-    <div id="home-screen" class="screen active">
-        <header class="main-header">
-            <h1 class="neon-title">PROJETO: FÍSICO DE ELITE</h1>
-            <div class="controls">
-                <button id="music-control" class="btn-ui" onclick="toggleMusic()">
-                    <span>🎵</span> Som: <span id="music-status">OFF</span>
-                </button>
-            </div>
-        </header>
-
-        <div class="level-selector">
-            <div class="level-card" onclick="goToModule('pre-calculo')">
-                <img src="imagem/walter_lewin.jpg.jfif" class="card-bg">
-                <div class="card-info">
-                    <span>NÍVEL 01</span>
-                    <h2>Pré-Cálculo & Vetores</h2>
-                </div>
+    <div id="home-screen" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
+        <h1 style="text-shadow: 0 0 10px #00d4ff; color: #00d4ff; font-family: sans-serif;">PROJETO: FÍSICO DE ELITE</h1>
+        
+        <div style="display: flex; gap: 20px;">
+            <div onclick="alert('Nivel 1 clicado')" style="border: 2px solid #00d4ff; width: 250px; height: 350px; position: relative; overflow: hidden; border-radius: 15px;">
+                <img src="imagem/walter_lewin.jpg.jfif" style="width: 100%; height: 100%; object-fit: cover;">
+                <p style="position: absolute; bottom: 10px; left: 10px; font-family: sans-serif;">NÍVEL 01</p>
             </div>
 
-            <div class="level-card" onclick="goToModule('cinematica')">
-                <img src="imagem/oppenheimer.jpg.jfif" class="card-bg">
-                <div class="card-info">
-                    <span>NÍVEL 02</span>
-                    <h2>Cinemática (Cálculo)</h2>
-                </div>
+            <div onclick="alert('Nivel 2 clicado')" style="border: 2px solid #00d4ff; width: 250px; height: 350px; position: relative; overflow: hidden; border-radius: 15px;">
+                <img src="imagem/oppenheimer.jpg.jfif" style="width: 100%; height: 100%; object-fit: cover;">
+                <p style="position: absolute; bottom: 10px; left: 10px; font-family: sans-serif;">NÍVEL 02</p>
             </div>
         </div>
     </div>
-
-    <div id="module-screen" class="screen">
-        <button class="back-btn" onclick="goHome()">← VOLTAR</button>
-        <div id="module-content"></div>
-    </div>
-
     <script src="script.js"></script>
 </body>
 </html>
