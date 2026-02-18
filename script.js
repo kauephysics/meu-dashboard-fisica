@@ -24,33 +24,24 @@ animate();
 
 // --- NAVEGAÇÃO E CONTEÚDO ---
 function goToModule(id) {
-    const music = document.getElementById('bg-music');
-    if(music) { music.play().catch(() => console.log("Clique para ativar o som")); }
+    // Tenta dar play na música do YouTube
+    const iframe = document.getElementById('video-music');
+    if (iframe) {
+        iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+    }
 
+    const screen = document.getElementById('module-screen');
     document.getElementById('home-screen').classList.remove('active');
-    document.getElementById('module-screen').classList.add('active');
-    
-    const content = document.getElementById('module-content');
-    
+    screen.classList.add('active');
+
     if(id === 'pre-calculo') {
-        content.innerHTML = `
-            <div class="dashboard-wrapper">
-                <div class="header-stats">
-                    <div>
-                        <small>CONTAGEM REGRESSIVA</small>
-                        <div class="timer-box"><span>00:23</span></div>
-                    </div>
-                    <h1 style="font-family:Orbitron; font-size: 1.5rem; margin:0;">NÍVEIS DE FÍSICA</h1>
-                </div>
-
-                <div class="atom-container">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Stylised_Lithium_Atom.svg" class="atom-svg">
-                </div>
-
+        screen.innerHTML = `
+            <div class="module-container">
+                <button class="back-btn" onclick="goHome()">← VOLTAR</button>
                 <div class="grid-main">
-                    <div class="content-block highlight-card">
-                        <img src="imagem/walter_lewin.jfif" style="width:100%; border-radius:5px; margin-bottom:15px; opacity:0.8">
-                        <h2 style="color:var(--neon-blue); font-family:Orbitron; font-size:1rem;">Nível 1: Pré-Cálculo</h2>
+                    <div class="highlight-card">
+                        <img src="img/walter_lewin.jfif" style="width:100%; border-radius:10px;">
+                        <h2 style="color:var(--neon-blue)">Módulo 01</h2>
                         <p style="font-size:0.9rem; opacity:0.8">"A Física funciona! Vamos explorar as bases matemáticas."</p>
                     </div>
 
@@ -61,12 +52,6 @@ function goToModule(id) {
                             <div class="formula-item">Vy = V · sen(θ)</div>
                             <div class="formula-item">tan(θ) = Vy / Vx</div>
                             <div class="formula-item">|V| = √(Vx² + Vy²)</div>
-                        </div>
-
-                        <div style="margin-top:20px; font-size:0.9rem; line-height:1.6">
-                            <p>• O Plano Cartesiano (x, y, z)</p>
-                            <p>• Ciclo Trigonométrico</p>
-                            <p>• Funções Potência e Logaritmos</p>
                         </div>
                     </div>
                 </div>
