@@ -27,6 +27,16 @@ body {
     100% { left: 150%; opacity: 0; }
 }
 
+/* --- TÍTULO PRINCIPAL (FONTE NOVA) --- */
+.neon-title { 
+    font-family: "Kalnia Glaze", serif; /* Nova Fonte Aplicada */
+    font-weight: 700;
+    color: var(--neon-blue); 
+    text-shadow: 0 0 15px var(--neon-blue); 
+    font-size: 3.5rem; /* Aumentei um pouco pois essa fonte é bem detalhada */
+    margin: 40px 0;
+}
+
 /* --- ELEMENTOS FLUTUANTES --- */
 .formula {
     position: absolute; font-family: 'Orbitron'; color: rgba(0, 212, 255, 0.2);
@@ -49,8 +59,6 @@ body {
 /* --- DASHBOARD --- */
 .screen { display: none; min-height: 100vh; width: 100%; padding: 20px; box-sizing: border-box; }
 .screen.active { display: flex; flex-direction: column; align-items: center; justify-content: center; }
-
-.neon-title { font-family: 'Orbitron'; color: var(--neon-blue); text-shadow: 0 0 15px var(--neon-blue); font-size: 2.8rem; }
 
 .level-card {
     width: 320px; height: 420px; border: 2px solid var(--neon-blue); border-radius: 15px;
