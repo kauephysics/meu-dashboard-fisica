@@ -4,16 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Physics Alpha | Dashboard de Elite</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&family=Kalnia+Glaze:wght@100..700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
     <link rel="stylesheet" href="style.css">
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
-    <div id="comet-transition"></div>
     <div id="canvas-container"></div>
 
     <div id="home-screen" class="screen active">
@@ -21,24 +18,45 @@
             <h1 class="neon-title">Físico de Elite</h1>
             <p class="subtitle">Revisão Essencial Médio → Superior</p>
             <div class="main-content">
-                <div class="card-3d-wrap" onmousemove="handleCard3D(event)" onmouseleave="resetCard3D()">
-                    <div class="level-card" id="main-card" onclick="triggerComet('module')">
-                        <img src="img/walter_lewin.jfif" class="card-img-bg" alt="Walter Lewin">
-                        <div id="atom-canvas-container"></div> 
-                        <div class="card-info">
-                            <span class="badge">NÍVEL 01</span>
-                            <h2>Dashboard de Estudo</h2>
-                            <p>Clique para acessar os problemas e aulas</p>
-                        </div>
+                <div class="level-card" onclick="toggleScreen()">
+                    <div id="atom-canvas-container"></div> 
+                    <div class="card-info">
+                        <span class="badge">NÍVEL 01</span>
+                        <h2>Dashboard de Estudo</h2>
+                        <p>Clique para acessar os problemas</p>
                     </div>
                 </div>
             </div>
-            <div class="formula-floating f-1" id="float-1"></div>
-            <div class="formula-floating f-2" id="float-2"></div>
+            <div class="formula-footer">
+                <div id="f-mc2"></div>
+                <div id="f-ma"></div>
+            </div>
         </div>
     </div>
 
-    <div id="module-screen" class="screen"></div>
+    <div id="module-screen" class="screen">
+        <div class="glass-main revision-container">
+            <header class="header-rev">
+                <h2>REVISÃO ATIVA</h2>
+                <button class="back-btn" onclick="toggleScreen()">← VOLTAR</button>
+            </header>
+            
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div id="p1-formula" class="math-box"></div>
+                    <p><strong>Drone:</strong> Parte de $S_0 = 10m$ a $5m/s$. Em quanto tempo chega em $60m$?</p>
+                </div>
+                <div class="problem-card">
+                    <div id="p2-formula" class="math-box"></div>
+                    <p><strong>Lançamento:</strong> $v_0 = 20m/s$. Use $S = v_0t - 5t^2$. Qual a altura máxima?</p>
+                </div>
+                <div class="problem-card">
+                    <div id="p3-formula" class="math-box"></div>
+                    <p><strong>Plano Inclinado:</strong> Bloco em $30^\circ$. Calcule a componente $P_x = P \cdot \sin 30^\circ$.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
