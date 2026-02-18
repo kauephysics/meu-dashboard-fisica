@@ -55,23 +55,11 @@ body {
 
 .card-info { position: absolute; bottom: 15px; left: 15px; font-family: 'Orbitron'; }
 
-/* LAYOUT DO DASHBOARD (NÍVEL 1) */
 .dashboard-wrapper { width: 100%; max-width: 1100px; margin: 0 auto; }
 
 .header-stats {
     display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;
 }
-
-.timer-box {
-    background: rgba(0, 212, 255, 0.1); border: 1px solid var(--neon-blue);
-    padding: 10px 20px; border-radius: 5px;
-}
-
-.timer-box span { color: var(--neon-blue); font-weight: bold; font-size: 1.5rem; }
-
-.atom-container { text-align: center; margin: 20px 0; }
-
-.atom-svg { width: 120px; animation: rotate 20s linear infinite; }
 
 .grid-main { display: grid; grid-template-columns: 1fr 2fr; gap: 20px; }
 
@@ -95,5 +83,3 @@ body {
 }
 
 .back-btn:hover { background: var(--neon-blue); color: black; }
-
-@keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
