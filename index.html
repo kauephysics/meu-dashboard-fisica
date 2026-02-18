@@ -12,13 +12,8 @@
     <div id="comet-transition"></div>
 
     <div id="youtube-players" style="display: none;">
-        <iframe id="comet-effect" width="0" height="0" 
-            src="https://www.youtube.com/embed/or0pYLd8kxE?enablejsapi=1" 
-            frameborder="0"></iframe>
-        
-        <iframe id="video-music" width="0" height="0" 
-            src="https://www.youtube.com/embed/UDVtMYqUAyw?enablejsapi=1&loop=1&playlist=UDVtMYqUAyw" 
-            frameborder="0"></iframe>
+        <iframe id="comet-effect" width="0" height="0" src="https://www.youtube.com/embed/or0pYLd8kxE?enablejsapi=1" frameborder="0"></iframe>
+        <iframe id="video-music" width="0" height="0" src="https://www.youtube.com/embed/UDVtMYqUAyw?enablejsapi=1&loop=1&playlist=UDVtMYqUAyw" frameborder="0"></iframe>
     </div>
 
     <div id="canvas-container"></div>
@@ -26,20 +21,20 @@
     <div class="floating-elements">
         <div class="formula" style="top: 15%; left: 8%;">E = mc²</div>
         <div class="formula" style="top: 25%; right: 12%;">F = m · a</div>
-        <div class="formula" style="bottom: 20%; left: 12%;">Δp = F · Δt</div>
-        <div class="formula" style="bottom: 30%; right: 8%;">τ = rF senθ</div>
         <div class="planet planet-1"></div>
         <div class="planet planet-2"></div>
     </div>
 
     <div id="home-screen" class="screen active">
         <h1 class="neon-title">Revisão: Físico de Elite</h1>
+        
         <div class="level-selector">
-            <div class="level-card" onclick="triggerComet('pre-calculo')">
-                <img src="img/walter_lewin.jfif" class="card-bg">
-                <div class="card-info">
-                    <span>NÍVEL 01</span>
-                    <h2>Funções e Trigonometria</h2>
+            <div class="card-3d-wrap" onmousemove="handleCard3D(event)" onmouseleave="resetCard3D()">
+                <div class="level-card" id="main-card" onclick="triggerComet('pre-calculo')">
+                    <div id="atom-canvas-container"></div> <div class="card-info">
+                        <span>NÍVEL 01</span>
+                        <h2>Funções e Trigonometria</h2>
+                    </div>
                 </div>
             </div>
         </div>
