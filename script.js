@@ -6,7 +6,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.getElementById('canvas-container').appendChild(renderer.domElement);
 
 const starVertices = [];
-for(let i=0; i<5000; i++) {
+for(let i=0; i<6000; i++) {
     starVertices.push(THREE.MathUtils.randFloatSpread(2000), THREE.MathUtils.randFloatSpread(2000), THREE.MathUtils.randFloatSpread(2000));
 }
 const starGeo = new THREE.BufferGeometry().setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
@@ -37,7 +37,7 @@ const orbits = [createOrbit(Math.PI/4), createOrbit(-Math.PI/4), createOrbit(Mat
 orbits.forEach(o => atomScene.add(o.group));
 atomCam.position.z = 6;
 
-// --- 3. ANIMAÇÃO E RENDERIZAÇÃO ---
+// --- 3. ANIMAÇÃO ---
 function animate() {
     requestAnimationFrame(animate);
     stars.rotation.y += 0.0002;
@@ -52,7 +52,7 @@ function animate() {
 }
 animate();
 
-// --- 4. CARDS E TRANSIÇÕES ---
+// --- 4. INTERAÇÃO E TRANSIÇÃO ---
 function handleCard3D(e) {
     const card = document.getElementById('main-card');
     const rect = card.getBoundingClientRect();
@@ -65,88 +65,90 @@ function resetCard3D() {
     document.getElementById('main-card').style.transform = `rotateX(0deg) rotateY(0deg)`;
 }
 
-// Renderizar fórmulas iniciais
-window.onload = () => {
-    katex.render("E = mc^2", document.getElementById('float-1'));
-    katex.render("F = G \\frac{m_1 m_2}{r^2}", document.getElementById('float-2'));
-    katex.render("\\nabla \\cdot \\mathbf{B} = 0", document.getElementById('float-3'));
-};
-
-function triggerComet(id) {
+function triggerComet(dest) {
     document.getElementById('comet-transition').classList.add('comet-active');
     document.getElementById('comet-effect').contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
     
     setTimeout(() => {
         const home = document.getElementById('home-screen');
         const mod = document.getElementById('module-screen');
-        if(id === 'home') { mod.classList.remove('active'); home.classList.add('active'); }
+        if(dest === 'home') { mod.classList.remove('active'); home.classList.add('active'); }
         else { home.classList.remove('active'); mod.classList.add('active'); renderModule(); }
     }, 550);
     setTimeout(() => document.getElementById('comet-transition').classList.remove('comet-active'), 1100);
 }
 
-// --- 5. TELA DE REVISÃO DINÂMICA ---
+// Render Fórmulas Iniciais
+window.onload = () => {
+    katex.render("E = mc^2", document.getElementById('float-1'));
+    katex.render("\\sum F = m \\cdot a", document.getElementById('float-2'));
+};
+
+// --- 5. TELA DE REVISÃO (MAPA DE ESTUDO MÉDIO/SUPERIOR) ---
 function renderModule() {
     const mod = document.getElementById('module-screen');
     mod.innerHTML = `
-        <div class="glass-main" style="max-width:1100px;">
-            <div style="width:100%; display:flex; justify-content:space-between; align-items:center;">
-                <div class="timer-box">
-                    <span id="pomodoro-display">25:00</span>
-                    <button class="badge" style="cursor:pointer; background:none; border:1px solid var(--neon-pink); color:white; font-size:0.5rem;" onclick="toggleTimer()">START</button>
-                </div>
-                <h2 class="neon-title" style="font-size:2rem;">Laboratório Alpha</h2>
-                <button class="badge" style="cursor:pointer; border:none;" onclick="triggerComet('home')">← VOLTAR</button>
-            </div>
-            
-            <div class="module-grid">
+        <div class="glass-main module-container">
+            <header class="module-header">
                 <div>
-                    <div class="formula-card" onclick="this.classList.toggle('open')">
-                        <div id="f-rev-1"></div>
-                        <div class="expand-content">A base da trigonometria. Derivada do Teorema de Pitágoras no círculo unitário.</div>
-                    </div>
-                    <div class="formula-card" onclick="this.classList.toggle('open')">
-                        <div id="f-rev-2"></div>
-                        <div class="expand-content">Define uma reta. 'a' é a inclinação, 'b' é onde cruza o eixo Y.</div>
-                    </div>
+                    <h2 class="neon-text">MAPA DE REFERÊNCIA: PRÉ-CÁLCULO</h2>
+                    <p style="font-size:0.8rem; opacity:0.6;">Foco: Base de Ensino Médio para Física I</p>
                 </div>
-                
-                <div class="widget-card">
-                    <h3>Bhaskara Express</h3>
-                    <div class="calc-inputs">
-                        <input type="number" id="a" placeholder="a">
-                        <input type="number" id="b" placeholder="b">
-                        <input type="number" id="c" placeholder="c">
+                <button class="badge" style="cursor:pointer; border:none;" onclick="triggerComet('home')">← VOLTAR</button>
+            </header>
+
+            <div class="study-grid">
+                <section>
+                    <div class="section-tag">CINEMÁTICA & ÁLGEBRA</div>
+                    <div class="topic-card">
+                        <div class="formula-box" id="f-linear"></div>
+                        <div class="bullet-points">
+                            <p><strong>Reta (MRU):</strong> O coeficiente 'a' é a velocidade. No papel, identifique se a reta sobe ou desce.</p>
+                            <p><strong>Aplicação:</strong> Cálculo de deslocamento e velocidade constante.</p>
+                        </div>
                     </div>
-                    <button class="calc-btn" onclick="calcBhaskara()">CALCULAR</button>
-                    <div id="res" style="margin-top:15px; font-size:0.8rem; color:var(--neon-blue);"></div>
-                </div>
+                    
+                    <div class="topic-card">
+                        <div class="formula-box" id="f-quad"></div>
+                        <div class="bullet-points">
+                            <p><strong>Parábola (MRUV):</strong> O 'c' é a posição inicial. O vértice é onde o objeto para e inverte o sentido.</p>
+                            <p><strong>Aplicação:</strong> Queda livre e lançamento de projéteis.</p>
+                        </div>
+                    </div>
+                    
+                </section>
+
+                <section>
+                    <div class="section-tag">VETORES & GEOMETRIA</div>
+                    <div class="topic-card">
+                        <div class="formula-box" id="f-trig"></div>
+                        <div class="bullet-points">
+                            <p><strong>Triângulo Retângulo:</strong> Essencial para decompor forças em X e Y.</p>
+                            <p><strong>Dica:</strong> Seno para o cateto oposto, Cosseno para o cateto adjacente.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="topic-card">
+                        <div class="formula-box" id="f-circ"></div>
+                        <div class="bullet-points">
+                            <p><strong>Círculo Trigonométrico:</strong> Entenda a conversão de Graus para Radianos.</p>
+                            <p><strong>Aplicação:</strong> Movimento Circular e Ondas (MHS).</p>
+                        </div>
+                    </div>
+                    
+                </section>
             </div>
         </div>`;
     
-    katex.render("\\sin^2 \\theta + \\cos^2 \\theta = 1", document.getElementById('f-rev-1'));
-    katex.render("f(x) = ax + b", document.getElementById('f-rev-2'));
+    // Renderização das Fórmulas de Consulta
+    katex.render("S = S_0 + vt \\quad (y = ax + b)", document.getElementById('f-linear'));
+    katex.render("S = S_0 + v_0t + \\frac{at^2}{2}", document.getElementById('f-quad'));
+    katex.render("\\sin \\theta = \\frac{O}{H} \\quad \\cos \\theta = \\frac{A}{H}", document.getElementById('f-trig'));
+    katex.render("180^\\circ = \\pi \\text{ rad}", document.getElementById('f-circ'));
 }
 
-// --- 6. UTILITÁRIOS ---
-let timer;
-let timeLeft = 1500;
-function toggleTimer() {
-    if (timer) { clearInterval(timer); timer = null; }
-    else { timer = setInterval(() => {
-        timeLeft--;
-        const m = Math.floor(timeLeft/60);
-        const s = timeLeft%60;
-        document.getElementById('pomodoro-display').innerText = `${m}:${s < 10 ? '0'+s : s}`;
-    }, 1000); }
-}
-
-function calcBhaskara() {
-    const a = parseFloat(document.getElementById('a').value);
-    const b = parseFloat(document.getElementById('b').value);
-    const c = parseFloat(document.getElementById('c').value);
-    const d = (b*b) - (4*a*c);
-    const res = document.getElementById('res');
-    if(d < 0) res.innerText = "Delta negativo!";
-    else res.innerText = `x1: ${((-b + Math.sqrt(d))/(2*a)).toFixed(2)} | x2: ${((-b - Math.sqrt(d))/(2*a)).toFixed(2)}`;
-}
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+});
