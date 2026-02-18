@@ -39,6 +39,7 @@ body {
     text-shadow: 0 0 15px var(--neon-blue);
     margin: 50px 0;
     text-align: center;
+    font-size: 2.5rem;
 }
 
 .level-selector { display: flex; gap: 30px; flex-wrap: wrap; justify-content: center; }
@@ -54,7 +55,7 @@ body {
 
 .card-info { position: absolute; bottom: 15px; left: 15px; font-family: 'Orbitron'; }
 
-/* ESTILO DO MODELO DASHBOARD */
+/* LAYOUT DO DASHBOARD (NÍVEL 1) */
 .dashboard-wrapper { width: 100%; max-width: 1100px; margin: 0 auto; }
 
 .header-stats {
@@ -68,7 +69,7 @@ body {
 
 .timer-box span { color: var(--neon-blue); font-weight: bold; font-size: 1.5rem; }
 
-.atom-container { text-align: center; margin-bottom: 40px; }
+.atom-container { text-align: center; margin: 20px 0; }
 
 .atom-svg { width: 120px; animation: rotate 20s linear infinite; }
 
@@ -85,7 +86,7 @@ body {
 
 .formula-item {
     background: rgba(0, 255, 204, 0.05); border-left: 3px solid var(--neon-green);
-    padding: 15px; font-family: 'Orbitron'; color: var(--neon-green);
+    padding: 15px; font-family: 'Orbitron'; color: var(--neon-green); font-size: 1.1rem;
 }
 
 .back-btn {
