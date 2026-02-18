@@ -1,4 +1,4 @@
-// --- FUNDO ESTRELADO ---
+// --- SISTEMA 3D ---
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({alpha: true});
@@ -12,7 +12,7 @@ const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({color: 0xfffff
 scene.add(stars);
 camera.position.z = 1;
 
-// --- ÁTOMO 3D NO CARD ---
+// --- ÁTOMO NO CARD ---
 const atomScene = new THREE.Scene();
 const atomCam = new THREE.PerspectiveCamera(45, 1.6, 0.1, 100);
 const atomRenderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
@@ -33,7 +33,7 @@ function animate() {
 }
 animate();
 
-// --- SISTEMA DE NAVEGAÇÃO ---
+// --- NAVEGAÇÃO ---
 function triggerComet(dest) {
     document.getElementById('comet-transition').classList.add('comet-active');
     setTimeout(() => {
@@ -54,13 +54,13 @@ function handleCard3D(e) {
 }
 function resetCard3D() { document.getElementById('main-card').style.transform = 'rotateX(0deg) rotateY(0deg)'; }
 
-// --- RENDERIZAÇÃO DA AULA E PROBLEMAS ---
+// --- RENDERIZAÇÃO DAS AULAS ---
 function renderModule() {
     const mod = document.getElementById('module-screen');
     mod.innerHTML = `
         <div class="glass-main" style="max-height: 90vh; overflow-y: auto;">
-            <header style="display:flex; justify-content:space-between; width:100%; align-items:center;">
-                <h2 style="font-family:'Orbitron'; color:var(--neon-blue); font-size: 1.2rem;">SISTEMA DE AULA ATIVA</h2>
+            <header style="display:flex; justify-content:space-between; width:100%; align-items:center; margin-bottom:20px;">
+                <h2 style="font-family:'Orbitron'; color:var(--neon-blue); font-size: 1.1rem;">AULA ATIVA: NÍVEL 1</h2>
                 <button class="back-btn" onclick="triggerComet('home')">← VOLTAR</button>
             </header>
             
@@ -69,11 +69,10 @@ function renderModule() {
                     <div id="m1" class="math-box"></div>
                     <p><strong>Drone:</strong> Parte de 10m a 5m/s. Em quanto tempo chega em 60m?</p>
                     <div class="mini-aula">
-                        <b style="color:var(--neon-blue)">AULA RÁPIDA:</b><br>
-                        1. Identifique os dados: <b>S</b>=60, <b>S₀</b>=10, <b>v</b>=5.<br>
-                        2. Monte a equação: 60 = 10 + 5t.<br>
-                        3. Isole o tempo: 60 - 10 = 5t → 50 = 5t.<br>
-                        4. <b>t = 10 segundos</b>.
+                        <b style="color:var(--neon-blue)">COMO RESOLVER:</b><br>
+                        1. Use a fórmula ao lado. <b>S</b> é o destino (60), <b>S₀</b> é o início (10).<br>
+                        2. A conta fica: 60 = 10 + 5t.<br>
+                        3. 50 = 5t → <b>t = 10 segundos.</b>
                     </div>
                 </div>
 
@@ -81,17 +80,16 @@ function renderModule() {
                     <div id="m2" class="math-box"></div>
                     <p><strong>Plano Inclinado:</strong> Bloco de 100N em 30°. Calcule Px.</p>
                     <div class="mini-aula">
-                        <b style="color:var(--neon-pink)">AULA RÁPIDA:</b><br>
-                        1. <b>P</b> (Peso) é a força total para baixo (100N).<br>
-                        2. <b>θ</b> (Ângulo) é a inclinação do plano (30°).<br>
-                        3. Use <b>Px = P × sen(30°)</b>.<br>
-                        4. Como sen(30°) = 0,5, então <b>Px = 50N</b>.
+                        <b style="color:var(--neon-pink)">COMO RESOLVER:</b><br>
+                        1. <b>P</b> é o peso (100N).<br>
+                        2. <b>sen(30°)</b> vale 0,5.<br>
+                        3. Multiplique P pelo seno: 100 × 0,5.<br>
+                        4. <b>Px = 50N.</b> Esta é a força que puxa o bloco.
                     </div>
                 </div>
             </div>
         </div>`;
     
-    // Renderiza as fórmulas matemáticas nas IDs m1 e m2
     katex.render("S = S_0 + v \\cdot t", document.getElementById('m1'));
     katex.render("P_x = P \\cdot \\sin(\\theta)", document.getElementById('m2'));
 }
