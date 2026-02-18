@@ -27,33 +27,34 @@ body {
     100% { left: 150%; opacity: 0; }
 }
 
-/* --- TÍTULO PRINCIPAL (FONTE NOVA) --- */
+/* --- TÍTULO (KALNIA GLAZE) --- */
 .neon-title { 
-    font-family: "Kalnia Glaze", serif; /* Nova Fonte Aplicada */
+    font-family: "Kalnia Glaze", serif;
     font-weight: 700;
     color: var(--neon-blue); 
-    text-shadow: 0 0 15px var(--neon-blue); 
-    font-size: 3.5rem; /* Aumentei um pouco pois essa fonte é bem detalhada */
-    margin: 40px 0;
+    text-shadow: 0 0 20px var(--neon-blue); 
+    font-size: 3.8rem;
+    margin-bottom: 50px;
+    text-align: center;
 }
 
-/* --- ELEMENTOS FLUTUANTES --- */
+/* --- DECORAÇÕES --- */
 .formula {
-    position: absolute; font-family: 'Orbitron'; color: rgba(0, 212, 255, 0.2);
-    font-size: 1.5rem; pointer-events: none; animation: float 6s ease-in-out infinite;
+    position: absolute; font-family: 'Orbitron'; color: rgba(0, 212, 255, 0.15);
+    font-size: 1.4rem; pointer-events: none; animation: float 6s ease-in-out infinite;
 }
 
 .planet {
     position: absolute; border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, rgba(0, 212, 255, 0.1), transparent);
-    border: 1px solid rgba(0, 212, 255, 0.15); pointer-events: none;
+    background: radial-gradient(circle at 30% 30%, rgba(0, 212, 255, 0.08), transparent);
+    border: 1px solid rgba(0, 212, 255, 0.1); pointer-events: none;
 }
-.planet-1 { width: 120px; height: 120px; top: 10%; right: 8%; animation: float 12s infinite; }
-.planet-2 { width: 70px; height: 70px; bottom: 15%; left: 10%; animation: float 10s infinite; }
+.planet-1 { width: 150px; height: 150px; top: 10%; right: 10%; animation: float 15s infinite; }
+.planet-2 { width: 80px; height: 80px; bottom: 15%; left: 8%; animation: float 12s infinite; }
 
 @keyframes float {
     0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-30px) rotate(10deg); }
+    50% { transform: translateY(-25px) rotate(8deg); }
 }
 
 /* --- DASHBOARD --- */
@@ -69,9 +70,9 @@ body {
 .card-info { position: absolute; bottom: 25px; left: 25px; font-family: 'Orbitron'; }
 
 .dashboard-wrapper { width: 100%; max-width: 1000px; z-index: 10; animation: fadeIn 1s; }
-.content-block { background: rgba(0, 0, 0, 0.8); border: 1px solid var(--neon-blue); padding: 30px; border-radius: 12px; }
+.content-block { background: rgba(0, 0, 0, 0.85); border: 1px solid var(--neon-blue); padding: 30px; border-radius: 12px; }
 .formula-item { border-left: 3px solid var(--neon-green); padding: 12px; color: var(--neon-green); margin: 8px 0; background: rgba(0,255,204,0.05); font-family: 'Orbitron'; }
 
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
 .back-btn { background: none; border: 1px solid var(--neon-blue); color: var(--neon-blue); padding: 10px 20px; cursor: pointer; font-family: 'Orbitron'; margin-bottom: 20px; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
