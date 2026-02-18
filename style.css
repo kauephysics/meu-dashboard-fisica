@@ -4,48 +4,200 @@
     --glass: rgba(255, 255, 255, 0.05);
 }
 
-body { margin: 0; background: #000; color: white; font-family: 'Rajdhani', sans-serif; overflow: hidden; }
-#canvas-container { position: fixed; top: 0; left: 0; z-index: -1; }
-
-.screen { display: none; width: 100vw; height: 100vh; align-items: center; justify-content: center; position: absolute; }
-.screen.active { display: flex; animation: fadeIn 0.5s ease; }
-
-.glass-main {
-    width: 85%; max-width: 900px; padding: 30px; background: var(--glass);
-    backdrop-filter: blur(20px); border-radius: 30px; border: 1px solid rgba(255,255,255,0.1);
-    display: flex; flex-direction: column; align-items: center;
+/* Reset básico e melhoria do scroll */
+body { 
+    margin: 0; 
+    background: #000; 
+    color: white; 
+    font-family: 'Rajdhani', sans-serif; 
+    overflow: hidden; 
 }
 
-.neon-title { font-family: 'Orbitron'; font-size: 3rem; color: var(--neon-blue); text-shadow: 0 0 15px var(--neon-blue); margin: 0; }
-.subtitle { opacity: 0.6; letter-spacing: 3px; margin-bottom: 20px; }
+#canvas-container { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    z-index: -1; 
+}
 
+/* Telas */
+.screen { 
+    display: none; 
+    width: 100vw; 
+    height: 100vh; 
+    align-items: center; 
+    justify-content: center; 
+    position: absolute; 
+}
+
+.screen.active { 
+    display: flex; 
+    animation: fadeIn 0.5s ease; 
+}
+
+/* --- AJUSTE PRINCIPAL: Dashboard --- */
+.glass-main {
+    width: 90%; 
+    max-width: 1100px; /* Aumentado para preencher o espaço no F11 */
+    height: auto;
+    max-height: 85vh; /* Evita que o painel cole nas bordas superior/inferior */
+    padding: 40px; 
+    background: var(--glass);
+    backdrop-filter: blur(20px); 
+    border-radius: 30px; 
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+    overflow-y: auto; /* Permite scroll interno se o conteúdo for longo */
+}
+
+/* Títulos e Textos */
+.neon-title { 
+    font-family: 'Orbitron'; 
+    font-size: clamp(2rem, 5vw, 3.5rem); /* Fonte fluida conforme o tamanho da tela */
+    color: var(--neon-blue); 
+    text-shadow: 0 0 15px var(--neon-blue); 
+    margin: 0; 
+    text-align: center;
+}
+
+.subtitle { 
+    opacity: 0.6; 
+    letter-spacing: 3px; 
+    margin-bottom: 30px; 
+    text-align: center;
+}
+
+/* Card Central da Home */
 .level-card {
-    width: 350px; height: 220px; background: #050505; border-radius: 20px;
-    border: 1px solid var(--neon-blue); position: relative; overflow: hidden; transform-style: preserve-3d; cursor: pointer;
+    width: 350px; 
+    height: 220px; 
+    background: #050505; 
+    border-radius: 20px;
+    border: 1px solid var(--neon-blue); 
+    position: relative; 
+    overflow: hidden; 
+    transform-style: preserve-3d; 
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+}
+
+.level-card:hover {
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
 }
 
 .card-img-bg { 
-    position: absolute; width: 100%; height: 100%; object-fit: cover; 
-    opacity: 0.5; top: 0; left: 0; z-index: 0;
+    position: absolute; 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    opacity: 0.4; 
+    top: 0; 
+    left: 0; 
+    z-index: 0;
 }
 
-.card-info { position: absolute; bottom: 20px; left: 20px; z-index: 2; text-align: left; }
-.badge { background: var(--neon-blue); color: black; padding: 3px 10px; border-radius: 10px; font-weight: bold; font-size: 0.7rem; }
+.card-info { 
+    position: absolute; 
+    bottom: 20px; 
+    left: 20px; 
+    z-index: 2; 
+    text-align: left; 
+}
 
-/* Grid de Problemas e Aulas */
-.problem-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; width: 100%; margin-top: 20px; }
-.problem-card { background: rgba(0,0,0,0.6); padding: 15px; border-radius: 15px; border-left: 4px solid var(--neon-pink); }
-.math-box { font-size: 1.4rem; color: var(--neon-blue); margin-bottom: 8px; }
+.badge { 
+    background: var(--neon-blue); 
+    color: black; 
+    padding: 3px 10px; 
+    border-radius: 10px; 
+    font-weight: bold; 
+    font-size: 0.7rem; 
+}
+
+/* --- GRID DE PROBLEMAS (AULA INTERATIVA) --- */
+.problem-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Responsividade inteligente */
+    gap: 25px; 
+    width: 100%; 
+    margin-top: 20px; 
+}
+
+.problem-card { 
+    background: rgba(0,0,0,0.6); 
+    padding: 20px; 
+    border-radius: 15px; 
+    border-left: 4px solid var(--neon-pink); 
+    transition: transform 0.3s ease;
+}
+
+.problem-card:hover {
+    transform: translateY(-5px);
+}
+
+.math-box { 
+    font-size: 1.6rem; 
+    color: var(--neon-blue); 
+    margin-bottom: 12px; 
+}
 
 .mini-aula {
-    background: rgba(0, 212, 255, 0.12); padding: 12px; border-radius: 10px;
-    font-size: 0.85rem; margin-top: 10px; border: 1px solid rgba(0, 212, 255, 0.2);
-    line-height: 1.4; color: #ddd;
+    background: rgba(0, 212, 255, 0.08); 
+    padding: 15px; 
+    border-radius: 10px;
+    font-size: 0.9rem; 
+    margin-top: 15px; 
+    border: 1px solid rgba(0, 212, 255, 0.15);
+    line-height: 1.5; 
+    color: #ececec;
 }
 
-.back-btn { background: var(--neon-blue); border: none; padding: 8px 20px; border-radius: 20px; cursor: pointer; font-family: 'Orbitron'; font-weight: bold; }
+/* Botão e Transições */
+.back-btn { 
+    background: var(--neon-blue); 
+    border: none; 
+    padding: 10px 25px; 
+    border-radius: 20px; 
+    cursor: pointer; 
+    font-family: 'Orbitron'; 
+    font-weight: bold; 
+    transition: filter 0.3s;
+}
 
-#comet-transition { position: fixed; top: 0; left: -150%; width: 150%; height: 100%; background: linear-gradient(90deg, transparent, var(--neon-blue), transparent); z-index: 9999; }
-.comet-active { animation: cometMove 0.8s ease-in-out forwards; }
-@keyframes cometMove { 0% { left: -150%; } 100% { left: 150%; } }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.back-btn:hover {
+    filter: brightness(1.2);
+}
+
+#comet-transition { 
+    position: fixed; 
+    top: 0; 
+    left: -150%; 
+    width: 150%; 
+    height: 100%; 
+    background: linear-gradient(90deg, transparent, var(--neon-blue), transparent); 
+    z-index: 9999; 
+}
+
+.comet-active { 
+    animation: cometMove 0.8s ease-in-out forwards; 
+}
+
+/* Estilização da Scrollbar para o Glass-Main */
+.glass-main::-webkit-scrollbar {
+    width: 6px;
+}
+.glass-main::-webkit-scrollbar-thumb {
+    background: var(--neon-blue);
+    border-radius: 10px;
+}
+
+@keyframes cometMove { 
+    0% { left: -150%; } 
+    100% { left: 150%; } 
+}
+
+@keyframes fadeIn { 
+    from { opacity: 0; } 
+    to { opacity: 1; } 
+}
