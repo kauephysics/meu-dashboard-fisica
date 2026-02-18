@@ -3,63 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Physics Alpha | Dashboard</title>
+    <title>Physics Alpha | Dashboard Elite</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
-<body class="dark-theme">
+<body>
+    <div id="player" style="display:none"></div>
 
-    <div class="container">
-        <header>
-            <h1>PROJETO: <span class="highlight">FÍSICO DE ELITE</span></h1>
-            <div class="timer-box">
-                <p>🚀 Lançamento das aulas em:</p>
-                <div id="countdown">--d --h --m --s</div>
+    <div id="canvas-container"></div>
+
+    <div id="home-screen" class="screen active">
+        <header class="main-header">
+            <h1 class="neon-title">PROJETO: FÍSICO DE ELITE</h1>
+            <div class="controls">
+                <button id="music-control" class="btn-ui" onclick="toggleMusic()">
+                    <span id="music-icon">🎵</span> Som: <span id="music-status">OFF</span>
+                </button>
             </div>
         </header>
 
-        <section class="stats">
-            <h3>Nível de Preparação</h3>
-            <div class="progress-bar">
-                <div class="progress" id="main-progress" style="width: 0%"></div>
-            </div>
-        </section>
-
-        <main class="grid">
-            <div class="subject-card" onclick="playSound()">
-                <div class="card-image">
-                    <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=300" alt="Math">
-                </div>
-                <div class="info">
-                    <span class="badge">Nível 1</span>
-                    <h3>Pré-Cálculo & Vetores</h3>
-                    <p>Decomposição de \(\vec{V}\) e Identidades Trigonométricas.</p>
-                    <label class="checkbox-container"> Marcar como concluído
-                        <input type="checkbox" class="task" onchange="updateProgress()">
-                        <span class="checkmark"></span>
-                    </label>
+        <div class="level-selector">
+            <div class="level-card" onclick="goToModule('pre-calculo')">
+                <div class="card-glow"></div>
+                <img src="img/walter_lewin.jpg" class="card-bg">
+                <div class="card-info">
+                    <span>NÍVEL 01</span>
+                    <h2>Pré-Cálculo & Vetores</h2>
                 </div>
             </div>
 
-            <div class="subject-card" onclick="playSound()">
-                <div class="card-image">
-                    <img src="https://images.unsplash.com/photo-1614935151651-0bea6508db6b?w=300" alt="Física">
-                </div>
-                <div class="info">
-                    <span class="badge">Nível 2</span>
-                    <h3>Cinemática (Cálculo)</h3>
-                    <p>Relacionar \(v = \frac{ds}{dt}\) e \(a = \frac{dv}{dt}\).</p>
-                    <label class="checkbox-container"> Marcar como concluído
-                        <input type="checkbox" class="task" onchange="updateProgress()">
-                        <span class="checkmark"></span>
-                    </label>
+            <div class="level-card" onclick="goToModule('cinematica')">
+                <div class="card-glow"></div>
+                <img src="img/oppenheimer.jpg" class="card-bg">
+                <div class="card-info">
+                    <span>NÍVEL 02</span>
+                    <h2>Cinemática (Cálculo)</h2>
                 </div>
             </div>
-        </main>
+        </div>
     </div>
 
-    <audio id="click-sound" src="https://www.soundjay.com/buttons/sounds/button-10.mp3"></audio>
+    <div id="module-screen" class="screen">
+        <div class="module-nav">
+            <button class="back-btn" onclick="goHome()">← VOLTAR AO HUB</button>
+        </div>
+        <div id="module-content"></div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
