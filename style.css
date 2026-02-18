@@ -30,7 +30,7 @@ body { margin: 0; background: #000; color: white; font-family: 'Rajdhani', sans-
 
 .floating-math { font-size: 1.8rem; margin: 20px; color: rgba(255,255,255,0.5); }
 
-/* Grid de Problemas Corrigido */
+/* Grid de Problemas - Corrigido para não bugar o texto */
 .problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; width: 100%; margin-top: 20px; }
 .problem-card { background: rgba(0,0,0,0.5); padding: 15px; border-radius: 12px; border-top: 3px solid var(--neon-pink); }
 .math-box { font-size: 1.2rem; color: var(--neon-blue); margin-bottom: 8px; min-height: 30px; }
