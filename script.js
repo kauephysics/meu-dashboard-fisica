@@ -1,4 +1,4 @@
-// --- ESTRELAS E FUNDO ---
+// --- FUNDO ESTRELADO ---
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({alpha: true});
@@ -34,7 +34,7 @@ function animate() {
 }
 animate();
 
-// --- LÓGICA DE TRANSIÇÃO ---
+// --- SISTEMA DE TRANSIÇÃO ---
 function triggerComet(dest) {
     document.getElementById('comet-transition').classList.add('comet-active');
     setTimeout(() => {
@@ -55,7 +55,7 @@ function handleCard3D(e) {
 }
 function resetCard3D() { document.getElementById('main-card').style.transform = 'rotateX(0deg) rotateY(0deg)'; }
 
-// --- RENDERIZAÇÃO DOS PROBLEMAS (CORREÇÃO AQUI) ---
+// --- RENDERIZAÇÃO CORRIGIDA ---
 function renderModule() {
     const mod = document.getElementById('module-screen');
     mod.innerHTML = `
@@ -68,19 +68,19 @@ function renderModule() {
                 </div>
                 <div class="problem-card">
                     <div id="m2" class="math-box"></div>
-                    <div class="problem-text">Lançamento a 20m/s. Qual a altura máxima (Use g=10)?</div>
+                    <div class="problem-text">Lançamento a 20m/s. Qual a altura máxima? (Use g=10)</div>
                 </div>
                 <div class="problem-card">
                     <div id="m3" class="math-box"></div>
-                    <div class="problem-text">Bloco em 30°. Calcule a força Px (sen 30° = 0,5).</div>
+                    <div class="problem-text">Bloco em 30°. Calcule a força Px (Peso = 100N).</div>
                 </div>
             </div>
         </div>`;
     
-    // Renderiza as fórmulas sem apagar o texto
+    // KaTeX renderiza apenas nas divs vazias m1, m2, m3
     katex.render("S = S_0 + v \\cdot t", document.getElementById('m1'));
-    katex.render("H_{max} = \\frac{v_0^2}{2g}", document.getElementById('m2'));
-    katex.render("P_x = P \\cdot \\sin(\\theta)", document.getElementById('m3'));
+    katex.render("H = \\frac{v_0^2}{2g}", document.getElementById('m2'));
+    katex.render("P_x = P \\cdot \\sin(30^\\circ)", document.getElementById('m3'));
 }
 
 function renderHomeMath() {
