@@ -13,7 +13,7 @@ const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({color: 0xfffff
 scene.add(stars);
 camera.position.z = 1;
 
-// --- ÁTOMO 3D ---
+// --- ÁTOMO 3D NO CARD ---
 const atomScene = new THREE.Scene();
 const atomCam = new THREE.PerspectiveCamera(45, 1.6, 0.1, 100);
 const atomRenderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
@@ -34,7 +34,7 @@ function animate() {
 }
 animate();
 
-// --- SISTEMA DE TRANSIÇÃO ---
+// --- CONTROLE DE TRANSIÇÃO ---
 function triggerComet(dest) {
     document.getElementById('comet-transition').classList.add('comet-active');
     setTimeout(() => {
@@ -55,7 +55,7 @@ function handleCard3D(e) {
 }
 function resetCard3D() { document.getElementById('main-card').style.transform = 'rotateX(0deg) rotateY(0deg)'; }
 
-// --- RENDERIZAÇÃO CORRIGIDA ---
+// --- RENDERIZAÇÃO DOS PROBLEMAS ---
 function renderModule() {
     const mod = document.getElementById('module-screen');
     mod.innerHTML = `
@@ -64,22 +64,22 @@ function renderModule() {
             <div class="problem-grid">
                 <div class="problem-card">
                     <div id="m1" class="math-box"></div>
-                    <div class="problem-text">Drone parte de 10m a 5m/s. Em quanto tempo chega em 60m?</div>
+                    <div class="problem-text"><strong>Drone:</strong> Parte de 10m a 5m/s. Em quanto tempo chega em 60m?</div>
                 </div>
                 <div class="problem-card">
                     <div id="m2" class="math-box"></div>
-                    <div class="problem-text">Lançamento a 20m/s. Qual a altura máxima? (Use g=10)</div>
+                    <div class="problem-text"><strong>Queda:</strong> Largado de 20m. Qual a velocidade ao atingir o solo? (g=10)</div>
                 </div>
                 <div class="problem-card">
                     <div id="m3" class="math-box"></div>
-                    <div class="problem-text">Bloco em 30°. Calcule a força Px (Peso = 100N).</div>
+                    <div class="problem-text"><strong>Plano:</strong> Bloco em 30°. Calcule a componente Px (Peso = 100N).</div>
                 </div>
             </div>
         </div>`;
     
-    // KaTeX renderiza apenas nas divs vazias m1, m2, m3
+    // O KaTeX agora renderiza apenas na div 'math-box', mantendo o texto seguro
     katex.render("S = S_0 + v \\cdot t", document.getElementById('m1'));
-    katex.render("H = \\frac{v_0^2}{2g}", document.getElementById('m2'));
+    katex.render("v^2 = v_0^2 + 2g\\Delta h", document.getElementById('m2'));
     katex.render("P_x = P \\cdot \\sin(30^\\circ)", document.getElementById('m3'));
 }
 
