@@ -1,4 +1,4 @@
-// --- SISTEMA 3D E ANIMAÇÃO ---
+// --- SISTEMA 3D DE FUNDO ---
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({alpha: true});
@@ -12,90 +12,78 @@ const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({color: 0xfffff
 scene.add(stars);
 camera.position.z = 1;
 
-const atomScene = new THREE.Scene();
-const atomCam = new THREE.PerspectiveCamera(45, 1.6, 0.1, 100);
-const atomRenderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
-atomRenderer.setSize(350, 220);
-document.getElementById('atom-canvas-container').appendChild(atomRenderer.domElement);
-const core = new THREE.Mesh(new THREE.SphereGeometry(0.4, 32, 32), new THREE.MeshBasicMaterial({color: 0x00d4ff}));
-atomScene.add(core);
-const ring = new THREE.Mesh(new THREE.TorusGeometry(1.2, 0.02, 16, 100), new THREE.MeshBasicMaterial({color: 0xff00cc}));
-atomScene.add(ring);
-atomCam.position.z = 4;
-
 function animate() {
     requestAnimationFrame(animate);
-    stars.rotation.y += 0.0002;
-    ring.rotation.y += 0.05; ring.rotation.x += 0.02;
-    atomRenderer.render(atomScene, atomCam);
+    stars.rotation.y += 0.0005;
     renderer.render(scene, camera);
 }
 animate();
 
-// --- NAVEGAÇÃO ---
-function triggerComet(dest) {
-    document.getElementById('comet-transition').classList.add('comet-active');
-    setTimeout(() => {
-        document.getElementById('home-screen').classList.toggle('active', dest === 'home');
-        document.getElementById('module-screen').classList.toggle('active', dest === 'module');
-        if(dest === 'module') renderModule();
-        else renderHomeMath();
-    }, 400);
-    setTimeout(() => document.getElementById('comet-transition').classList.remove('comet-active'), 800);
-}
-
-function handleCard3D(e) {
-    const card = document.getElementById('main-card');
-    const rect = card.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    card.style.transform = `rotateX(${y * -15}deg) rotateY(${x * 15}deg)`;
-}
-function resetCard3D() { document.getElementById('main-card').style.transform = 'rotateX(0deg) rotateY(0deg)'; }
-
-// --- RENDERIZAÇÃO DA AULA (PASSO A PASSO) ---
-function renderModule() {
-    const mod = document.getElementById('module-screen');
-    mod.innerHTML = `
-        <div class="glass-main" style="max-height: 90vh; overflow-y: auto;">
-            <header style="display:flex; justify-content:space-between; width:100%; align-items:center; margin-bottom: 20px;">
-                <h2 style="font-family:'Orbitron'; color:var(--neon-blue);">AULA INTERATIVA</h2>
-                <button class="back-btn" onclick="triggerComet('home')" style="background:var(--neon-blue); border:none; padding:10px; border-radius:10px; cursor:pointer;">← VOLTAR</button>
-            </header>
-            
-            <div class="problem-grid">
-                <div class="problem-card" style="margin-bottom:20px;">
-                    <div id="m1" class="math-box"></div>
-                    <p><strong>Desafio Drone:</strong> Um drone parte da posição 10m com velocidade de 5m/s. Em quanto tempo chega em 60m?</p>
-                    <div class="mini-aula" style="background:rgba(0,212,255,0.1); padding:15px; border-radius:10px; margin-top:10px; border:1px solid var(--neon-blue);">
-                        <b style="color:var(--neon-blue)">MINI AULA:</b><br>
-                        1. <b>S</b> é o destino final (60m).<br>
-                        2. <b>S₀</b> é onde tudo começou (10m).<br>
-                        3. <b>v</b> é a velocidade constante (5m/s).<br>
-                        4. <b>Equação:</b> 60 = 10 + 5t. Subtraia 10 de 60 e divida por 5.
-                    </div>
-                </div>
-
-                <div class="problem-card">
-                    <div id="m2" class="math-box"></div>
-                    <p><strong>Plano Inclinado:</strong> Um bloco de 100N está num plano de 30°. Qual a força Px?</p>
-                    <div class="mini-aula" style="background:rgba(255,0,204,0.1); padding:15px; border-radius:10px; margin-top:10px; border:1px solid var(--neon-pink);">
-                        <b style="color:var(--neon-pink)">MINI AULA:</b><br>
-                        1. <b>P</b> é o Peso total do bloco (100N).<br>
-                        2. <b>θ</b> é a inclinação (30°).<br>
-                        3. <b>Px</b> é a componente que faz o bloco descer.<br>
-                        4. <b>Cálculo:</b> Como sen(30°) = 0.5, multiplique 100 x 0.5.
-                    </div>
-                </div>
-            </div>
-        </div>`;
+// --- LÓGICA DE NAVEGAÇÃO ---
+function triggerComet(targetScreen) {
+    const comet = document.getElementById('comet-transition');
+    comet.classList.add('comet-active');
     
-    katex.render("S = S_0 + v \\cdot t", document.getElementById('m1'));
-    katex.render("P_x = P \\cdot \\sin(\\theta)", document.getElementById('m2'));
+    setTimeout(() => {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(targetScreen + '-screen').classList.add('active');
+        if(targetScreen === 'module') showModule();
+    }, 400);
+
+    setTimeout(() => {
+        comet.classList.remove('comet-active');
+    }, 800);
 }
 
-function renderHomeMath() {
-    katex.render("E = mc^2", document.getElementById('float-1'));
-    katex.render("F = m \\cdot a", document.getElementById('float-2'));
+// --- CONTEÚDO: FUNÇÕES E TRIGONOMETRIA (MÉDIO -> SUPERIOR) ---
+function showModule() {
+    const mainContent = document.querySelector('#module-screen .glass-main');
+    
+    const problemas = [
+        { id: "p1", titulo: "Domínio e Restrição", desc: "Determine o domínio de f(x).", aula: "No superior, o domínio é a base. Raiz quadrada exige x-2 ≥ 0 e denominador x-5 ≠ 0.", formula: "f(x) = \\frac{\\sqrt{x-2}}{x-5}" },
+        { id: "p2", titulo: "Composição de Funções", desc: "Calcule a composta (f ∘ g)(x).", aula: "Substitua toda a função g no lugar do 'x' da função f. Essencial para a Regra da Cadeia.", formula: "f(x)=x^2+3, \\quad g(x)=\\ln(x)" },
+        { id: "p3", titulo: "Função Inversa", desc: "Encontre a inversa f⁻¹(x).", aula: "Troque x por y e isole o novo y. Define a relação entre exponenciais e logaritmos.", formula: "f(x) = \\frac{2x-3}{x+1}" },
+        { id: "p4", titulo: "Transformação Linear", desc: "Como o gráfico se move?", aula: "Somar dentro do argumento move horizontalmente (invertido). Somar fora move verticalmente.", formula: "g(x) = f(x-3) + 2" },
+        { id: "p5", titulo: "Paridade de Funções", desc: "A função é par ou ímpar?", aula: "Se f(-x) = f(x) é par (simetria no eixo Y). Se f(-x) = -f(x) é ímpar (simetria na origem).", formula: "f(x) = x \\cdot \\cos(x)" },
+        { id: "p6", titulo: "Logaritmos Naturais", desc: "Resolva para x.", aula: "Aplique ln (logaritmo natural) em ambos os lados para 'baixar' o expoente x.", formula: "2^{x+1} = 5" },
+        { id: "p7", titulo: "Equação Exponencial", desc: "Ache as raízes.", aula: "Dica de Superior: Substitua eˣ por 'u' para transformar em uma equação de 2º grau.", formula: "e^{2x} - 3e^x + 2 = 0" },
+        { id: "p8", titulo: "Comportamento Assintótico", desc: "O que ocorre quando x → ∞?", aula: "Base do conceito de Limite. A função aproxima-se de um valor sem nunca tocá-lo.", formula: "f(x) = \\frac{1}{x}" },
+        { id: "p9", titulo: "Círculo Trigonométrico", desc: "Converta e localize o cosseno.", aula: "No superior, radianos são padrão. 150° = 5π/6 rad. O cosseno é o eixo X.", formula: "\\cos(150^\\circ)" },
+        { id: "p10", titulo: "Identidade Fundamental", desc: "Ache o valor de cos(x).", aula: "Use sen²x + cos²x = 1. Cuidado com o sinal: no 2º quadrante o cosseno é negativo!", formula: "\\text{sen}(x) = \\frac{3}{5}, \\quad x \\in II" },
+        { id: "p11", titulo: "Soma de Arcos", desc: "Calcule o valor exato.", aula: "Use a fórmula: cos(a+b) = cos(a)cos(b) - sen(a)sen(b).", formula: "\\cos(75^\\circ) = \\cos(45^\\circ + 30^\\circ)" },
+        { id: "p12", titulo: "Arco Duplo", desc: "Simplifique a expressão.", aula: "Muito usado em integrais para reduzir potências de funções trigonométricas.", formula: "\\text{sen}(2x) = 2\\text{sen}(x)\\cos(x)" },
+        { id: "p13", titulo: "Tangente e Assíntotas", desc: "Onde a função não existe?", aula: "A tangente é sen/cos. Ela explode (infinito) onde o cos(x) = 0.", formula: "f(x) = \\tan(x)" },
+        { id: "p14", titulo: "Secante e Pitágoras", desc: "Simplifique a expressão.", aula: "Lembre-se que sec(x) = 1/cos(x). A relação pitagórica liga sen, cos e sec.", formula: "(1 - \\text{sen}^2 x) \\cdot \\sec^2 x" },
+        { id: "p15", titulo: "Período da Onda", desc: "Qual a frequência desta função?", aula: "O número que multiplica o x (k=2) encurta o período: T = 2π/k.", formula: "f(x) = \\text{sen}(2x)" },
+        { id: "p16", titulo: "Inversas (Arco)", desc: "Ache o ângulo.", aula: "Função arco-seno: 'Qual o ângulo cujo seno resulta em 1?'.", formula: "y = \\arcsen(1)" },
+        { id: "p17", titulo: "Lei dos Cossenos", desc: "Aplicação em vetores.", aula: "Fundamental para somar forças ou vetores em física de nível superior.", formula: "c^2 = a^2 + b^2 - 2ab \\cos(\\theta)" },
+        { id: "p18", titulo: "Limites Trigonométricos", desc: "Um limite fundamental.", aula: "Este é o limite mais importante da trigonometria no cálculo inicial.", formula: "\\lim_{x \\to 0} \\frac{\\text{sen}(x)}{x} = 1" },
+        { id: "p19", titulo: "Identidade de Euler", desc: "A ponte entre funções.", aula: "A conexão mais bela da matemática: exponenciais complexas e trigonometria.", formula: "e^{i\\theta} = \\cos\\theta + i\\text{sen}\\theta" },
+        { id: "p20", titulo: "Deslocamento de Fase", desc: "Ajuste fino da onda.", aula: "O termo +π move a função senoidal horizontalmente no gráfico.", formula: "f(x) = A \\cdot \\text{sen}(wx + \\phi)" }
+    ];
+
+    let cardsHTML = problemas.map(p => `
+        <div class="problem-card">
+            <div id="${p.id}" class="math-box"></div>
+            <p><strong>${p.titulo}:</strong> ${p.desc}</p>
+            <div class="mini-aula">
+                <b style="color:var(--neon-pink)">DICA SUPERIOR:</b><br>
+                ${p.aula}
+            </div>
+        </div>
+    `).join('');
+
+    mainContent.innerHTML = `
+        <h1 class="neon-title">Revisão Pré-Cálculo</h1>
+        <p class="subtitle">20 Tópicos Essenciais: Funções e Trigonometria</p>
+        <button class="back-btn" onclick="triggerComet('home')" style="margin-bottom:20px">← VOLTAR AO INÍCIO</button>
+        <div class="problem-grid">
+            ${cardsHTML}
+        </div>
+    `;
+
+    // Renderiza as fórmulas após criar o HTML
+    problemas.forEach(p => {
+        katex.render(p.formula, document.getElementById(p.id), { throwOnError: false });
+    });
 }
-window.onload = renderHomeMath;
