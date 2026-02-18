@@ -1,99 +1,87 @@
-:root {
-    --neon-blue: #00d4ff;
-    --neon-green: #00ffcc;
-    --dark-bg: #050505;
+// --- SISTEMA DE ESTRELAS ---
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({alpha: true});
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+const geometry = new THREE.BufferGeometry();
+const vertices = [];
+for(let i=0; i<5000; i++) {
+    vertices.push(THREE.MathUtils.randFloatSpread(2000), THREE.MathUtils.randFloatSpread(2000), THREE.MathUtils.randFloatSpread(2000));
+}
+geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+const stars = new THREE.Points(geometry, new THREE.PointsMaterial({color: 0xffffff, size: 0.8}));
+scene.add(stars);
+camera.position.z = 1;
+
+function animate() {
+    requestAnimationFrame(animate);
+    stars.rotation.y += 0.0004;
+    renderer.render(scene, camera);
+}
+animate();
+
+// --- NAVEGAÇÃO E CONTEÚDO ---
+function goToModule(id) {
+    const music = document.getElementById('bg-music');
+    if(music) { music.play().catch(() => console.log("Clique para ativar o som")); }
+
+    document.getElementById('home-screen').classList.remove('active');
+    document.getElementById('module-screen').classList.add('active');
+    
+    const content = document.getElementById('module-content');
+    
+    if(id === 'pre-calculo') {
+        content.innerHTML = `
+            <div class="dashboard-wrapper">
+                <div class="header-stats">
+                    <div>
+                        <small>CONTAGEM REGRESSIVA</small>
+                        <div class="timer-box"><span>00:23</span></div>
+                    </div>
+                    <h1 style="font-family:Orbitron; font-size: 1.5rem; margin:0;">NÍVEIS DE FÍSICA</h1>
+                </div>
+
+                <div class="atom-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Stylised_Lithium_Atom.svg" class="atom-svg">
+                </div>
+
+                <div class="grid-main">
+                    <div class="content-block highlight-card">
+                        <img src="imagem/walter_lewin.jfif" style="width:100%; border-radius:5px; margin-bottom:15px; opacity:0.8">
+                        <h2 style="color:var(--neon-blue); font-family:Orbitron; font-size:1rem;">Nível 1: Pré-Cálculo</h2>
+                        <p style="font-size:0.9rem; opacity:0.8">"A Física funciona! Vamos explorar as bases matemáticas."</p>
+                    </div>
+
+                    <div class="content-block">
+                        <h3 style="border-bottom:1px solid #333; padding-bottom:10px; margin-top:0;">Conceitos e Fórmulas</h3>
+                        <div class="formula-grid">
+                            <div class="formula-item">Vx = V · cos(θ)</div>
+                            <div class="formula-item">Vy = V · sen(θ)</div>
+                            <div class="formula-item">tan(θ) = Vy / Vx</div>
+                            <div class="formula-item">|V| = √(Vx² + Vy²)</div>
+                        </div>
+
+                        <div style="margin-top:20px; font-size:0.9rem; line-height:1.6">
+                            <p>• O Plano Cartesiano (x, y, z)</p>
+                            <p>• Ciclo Trigonométrico</p>
+                            <p>• Funções Potência e Logaritmos</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
 }
 
-body {
-    margin: 0;
-    background-color: var(--dark-bg);
-    color: white;
-    font-family: 'Rajdhani', sans-serif;
-    overflow-x: hidden;
+function goHome() {
+    document.getElementById('module-screen').classList.remove('active');
+    document.getElementById('home-screen').classList.add('active');
 }
 
-#canvas-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
-}
-
-.screen {
-    display: none;
-    min-height: 100vh;
-    width: 100%;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-.screen.active {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.neon-title {
-    font-family: 'Orbitron', sans-serif;
-    color: var(--neon-blue);
-    text-shadow: 0 0 15px var(--neon-blue);
-    margin: 50px 0;
-    text-align: center;
-    font-size: 2.5rem;
-}
-
-.level-selector { display: flex; gap: 30px; flex-wrap: wrap; justify-content: center; }
-
-.level-card {
-    width: 280px; height: 380px; border: 2px solid var(--neon-blue);
-    border-radius: 15px; position: relative; overflow: hidden; cursor: pointer; transition: 0.4s;
-}
-
-.level-card:hover { transform: scale(1.05); box-shadow: 0 0 25px var(--neon-blue); }
-
-.card-bg { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
-
-.card-info { position: absolute; bottom: 15px; left: 15px; font-family: 'Orbitron'; }
-
-/* LAYOUT DO DASHBOARD (NÍVEL 1) */
-.dashboard-wrapper { width: 100%; max-width: 1100px; margin: 0 auto; }
-
-.header-stats {
-    display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;
-}
-
-.timer-box {
-    background: rgba(0, 212, 255, 0.1); border: 1px solid var(--neon-blue);
-    padding: 10px 20px; border-radius: 5px;
-}
-
-.timer-box span { color: var(--neon-blue); font-weight: bold; font-size: 1.5rem; }
-
-.atom-container { text-align: center; margin: 20px 0; }
-
-.atom-svg { width: 120px; animation: rotate 20s linear infinite; }
-
-.grid-main { display: grid; grid-template-columns: 1fr 2fr; gap: 20px; }
-
-.content-block {
-    background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(0, 212, 255, 0.2);
-    padding: 20px; border-radius: 8px;
-}
-
-.highlight-card { border: 2px solid var(--neon-blue); box-shadow: inset 0 0 15px rgba(0, 212, 255, 0.2); }
-
-.formula-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
-
-.formula-item {
-    background: rgba(0, 255, 204, 0.05); border-left: 3px solid var(--neon-green);
-    padding: 15px; font-family: 'Orbitron'; color: var(--neon-green); font-size: 1.1rem;
-}
-
-.back-btn {
-    background: none; border: 1px solid var(--neon-blue); color: var(--neon-blue);
-    padding: 10px 25px; cursor: pointer; font-family: 'Orbitron'; margin-bottom: 30px; transition: 0.3s;
-}
-
-.back-btn:hover { background: var(--neon-blue); color: black; }
-
-@keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+});
