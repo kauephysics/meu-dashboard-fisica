@@ -24,10 +24,11 @@ animate();
 
 // --- NAVEGAÇÃO E CONTEÚDO ---
 function goToModule(id) {
-    // Tenta dar play na música do YouTube
     const iframe = document.getElementById('video-music');
     if (iframe) {
+        // Inicia o vídeo e define o volume para 20%
         iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+        iframe.contentWindow.postMessage('{"event":"command","func":"setVolume","args":[20]}', '*');
     }
 
     const screen = document.getElementById('module-screen');
@@ -36,21 +37,46 @@ function goToModule(id) {
 
     if(id === 'pre-calculo') {
         screen.innerHTML = `
-            <div class="module-container">
-                <button class="back-btn" onclick="goHome()">← VOLTAR</button>
+            <div class="dashboard-wrapper">
+                <button class="back-btn" onclick="goHome()">← VOLTAR AO MENU</button>
+                
+                <div class="header-stats">
+                    <h1 style="font-family:Orbitron; color:var(--neon-blue); margin:0;">NÍVEL 1: FUNÇÕES E TRIGONOMETRIA</h1>
+                </div>
+
                 <div class="grid-main">
-                    <div class="highlight-card">
-                        <img src="img/walter_lewin.jfif" style="width:100%; border-radius:10px;">
-                        <h2 style="color:var(--neon-blue)">Módulo 01</h2>
-                        <p style="font-size:0.9rem; opacity:0.8">"A Física funciona! Vamos explorar as bases matemáticas."</p>
+                    <div class="content-block highlight-card">
+                        <img src="img/walter_lewin.jfif" style="width:100%; border-radius:5px; margin-bottom:15px; opacity:0.9">
+                        <h2 style="color:var(--neon-blue); font-family:Orbitron; font-size:1.1rem;">Roteiro de Elite</h2>
+                        <p style="font-size:0.85rem;">Domine as funções para descrever o movimento e a trigonometria para decompor o universo.</p>
                     </div>
 
                     <div class="content-block">
-                        <h3 style="border-bottom:1px solid #333; padding-bottom:10px; margin-top:0;">Conceitos e Fórmulas</h3>
+                        <h3 style="color:var(--neon-green); font-family:Orbitron; border-bottom:1px solid #333; padding-bottom:10px;">Material de Estudo</h3>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; font-size: 0.9rem;">
+                            <div>
+                                <h4 style="color:var(--neon-blue);">1. Funções</h4>
+                                <ul style="list-style: none; padding: 0; line-height: 1.6;">
+                                    <li>• <b>1º Grau:</b> Gráficos lineares e MU.</li>
+                                    <li>• <b>2º Grau:</b> Parábolas e MUV.</li>
+                                    <li>• <b>Análise:</b> Raízes e Vértices.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 style="color:var(--neon-blue);">2. Trigonometria</h4>
+                                <ul style="list-style: none; padding: 0; line-height: 1.6;">
+                                    <li>• <b>Triângulo:</b> Seno, Cosseno e Tangente.</li>
+                                    <li>• <b>Círculo:</b> Graus vs Radianos.</li>
+                                    <li>• <b>Vetores:</b> Decomposição em X e Y.</li>
+                                </ul>
+                            </div>
+                        </div>
+
                         <div class="formula-grid">
-                            <div class="formula-item">Vx = V · cos(θ)</div>
-                            <div class="formula-item">Vy = V · sen(θ)</div>
-                            <div class="formula-item">tan(θ) = Vy / Vx</div>
+                            <div class="formula-item">sen²(θ) + cos²(θ) = 1</div>
+                            <div class="formula-item">f(x) = ax + b</div>
+                            <div class="formula-item">tg(θ) = sen/cos</div>
                             <div class="formula-item">|V| = √(Vx² + Vy²)</div>
                         </div>
                     </div>
