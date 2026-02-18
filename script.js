@@ -1,4 +1,4 @@
-// --- 1. SETUP THREE.JS (ESTRELAS) ---
+// --- CONFIGURAÇÕES BASE (STARS & ATOM) ---
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({alpha: true});
@@ -6,24 +6,20 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.getElementById('canvas-container').appendChild(renderer.domElement);
 
 const starVertices = [];
-for(let i=0; i<6000; i++) {
-    starVertices.push(THREE.MathUtils.randFloatSpread(2000), THREE.MathUtils.randFloatSpread(2000), THREE.MathUtils.randFloatSpread(2000));
-}
+for(let i=0; i<5000; i++) starVertices.push(THREE.MathUtils.randFloatSpread(2000), THREE.MathUtils.randFloatSpread(2000), THREE.MathUtils.randFloatSpread(2000));
 const starGeo = new THREE.BufferGeometry().setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
 const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({color: 0xffffff, size: 0.7}));
 scene.add(stars);
 camera.position.z = 1;
 
-// --- 2. SETUP ÁTOMO 3D ---
+// Átomo
 const atomScene = new THREE.Scene();
 const atomCam = new THREE.PerspectiveCamera(45, 1.5, 0.1, 1000);
 const atomRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-atomRenderer.setSize(380, 260);
+atomRenderer.setSize(340, 220);
 document.getElementById('atom-canvas-container').appendChild(atomRenderer.domElement);
-
 const core = new THREE.Mesh(new THREE.SphereGeometry(0.3, 32, 32), new THREE.MeshBasicMaterial({color: 0x00d4ff}));
 atomScene.add(core);
-
 function createOrbit(rotZ) {
     const group = new THREE.Group();
     const curve = new THREE.EllipseCurve(0, 0, 2.2, 1.1, 0, 2 * Math.PI, false, 0);
@@ -37,22 +33,17 @@ const orbits = [createOrbit(Math.PI/4), createOrbit(-Math.PI/4), createOrbit(Mat
 orbits.forEach(o => atomScene.add(o.group));
 atomCam.position.z = 6;
 
-// --- 3. ANIMAÇÃO ---
 function animate() {
     requestAnimationFrame(animate);
     stars.rotation.y += 0.0002;
     const time = Date.now() * 0.002;
-    orbits.forEach((o, i) => {
-        o.group.rotation.y += 0.015;
-        o.electron.position.x = Math.cos(time + i) * 2.2;
-        o.electron.position.y = Math.sin(time + i) * 1.1;
-    });
+    orbits.forEach((o, i) => { o.group.rotation.y += 0.015; o.electron.position.x = Math.cos(time + i) * 2.2; o.electron.position.y = Math.sin(time + i) * 1.1; });
     renderer.render(scene, camera);
     atomRenderer.render(atomScene, atomCam);
 }
 animate();
 
-// --- 4. INTERAÇÃO E TRANSIÇÃO ---
+// --- TRANSIÇÕES ---
 function handleCard3D(e) {
     const card = document.getElementById('main-card');
     const rect = card.getBoundingClientRect();
@@ -60,15 +51,10 @@ function handleCard3D(e) {
     const y = (e.clientY - rect.top) / rect.height - 0.5;
     card.style.transform = `rotateX(${y * -15}deg) rotateY(${x * 15}deg)`;
 }
-
-function resetCard3D() {
-    document.getElementById('main-card').style.transform = `rotateX(0deg) rotateY(0deg)`;
-}
+function resetCard3D() { document.getElementById('main-card').style.transform = `rotateX(0deg) rotateY(0deg)`; }
 
 function triggerComet(dest) {
     document.getElementById('comet-transition').classList.add('comet-active');
-    document.getElementById('comet-effect').contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-    
     setTimeout(() => {
         const home = document.getElementById('home-screen');
         const mod = document.getElementById('module-screen');
@@ -78,61 +64,63 @@ function triggerComet(dest) {
     setTimeout(() => document.getElementById('comet-transition').classList.remove('comet-active'), 1100);
 }
 
-// Render Fórmulas Iniciais
-window.onload = () => {
-    katex.render("E = mc^2", document.getElementById('float-1'));
-    katex.render("\\sum F = m \\cdot a", document.getElementById('float-2'));
-};
-
-// --- 5. TELA DE REVISÃO (MAPA DE ESTUDO MÉDIO/SUPERIOR) ---
+// --- DASHBOARD DE ESTUDO ---
 function renderModule() {
     const mod = document.getElementById('module-screen');
     mod.innerHTML = `
-        <div class="glass-main module-container">
-            <header class="module-header">
-                <div>
-                    <h2 class="neon-text">MAPA DE REFERÊNCIA: PRÉ-CÁLCULO</h2>
-                    <p style="font-size:0.8rem; opacity:0.6;">Foco: Base de Ensino Médio para Física I</p>
-                </div>
+        <div class="glass-main">
+            <header style="display:flex; justify-content:space-between; align-items:center;">
+                <h2 class="neon-text" style="font-family:'Orbitron'; font-size:1.5rem; margin:0; color:var(--neon-blue);">MAPA DE ESTUDO ATIVO</h2>
                 <button class="badge" style="cursor:pointer; border:none;" onclick="triggerComet('home')">← VOLTAR</button>
             </header>
 
             <div class="study-grid">
                 <section>
-                    <div class="section-tag">CINEMÁTICA & ÁLGEBRA</div>
                     <div class="topic-card">
                         <div class="formula-box" id="f-linear"></div>
-                        <div class="bullet-points">
-                            <p><strong>Reta (MRU):</strong> O coeficiente 'a' é a velocidade. No papel, identifique se a reta sobe ou desce.</p>
-                            <p><strong>Aplicação:</strong> Cálculo de deslocamento e velocidade constante.</p>
+                        <p style="font-size:0.8rem; opacity:0.8;">Base para MRU e leitura de gráficos de sensores.</p>
+                        <div class="problem-box">
+                            <h4>DESAFIO:</h4>
+                            <p>Um drone parte de S=10m a 5m/s. Em que instante ele atinge 60m?</p>
+                        </div>
+                        <div class="video-links">
+                            <a href="https://www.youtube.com/watch?v=f2O96m83-pY" target="_blank" class="video-btn">▶ Aula: Função 1º Grau</a>
                         </div>
                     </div>
                     
                     <div class="topic-card">
                         <div class="formula-box" id="f-quad"></div>
-                        <div class="bullet-points">
-                            <p><strong>Parábola (MRUV):</strong> O 'c' é a posição inicial. O vértice é onde o objeto para e inverte o sentido.</p>
-                            <p><strong>Aplicação:</strong> Queda livre e lançamento de projéteis.</p>
+                        <p style="font-size:0.8rem; opacity:0.8;">Base para MRUV e Lançamento de Projéteis.</p>
+                        <div class="problem-box">
+                            <h4>DESAFIO:</h4>
+                            <p>Lançamento a 20m/s. Use S = v₀t - 5t². Qual a altura máxima (Vértice)?</p>
+                        </div>
+                        <div class="video-links">
+                            <a href="https://www.youtube.com/watch?v=6P6v6FAnIuA" target="_blank" class="video-btn">▶ Aula: Função Quadrática</a>
                         </div>
                     </div>
                     
                 </section>
 
                 <section>
-                    <div class="section-tag">VETORES & GEOMETRIA</div>
                     <div class="topic-card">
                         <div class="formula-box" id="f-trig"></div>
-                        <div class="bullet-points">
-                            <p><strong>Triângulo Retângulo:</strong> Essencial para decompor forças em X e Y.</p>
-                            <p><strong>Dica:</strong> Seno para o cateto oposto, Cosseno para o cateto adjacente.</p>
+                        <p style="font-size:0.8rem; opacity:0.8;">Decomposição de forças e Plano Inclinado.</p>
+                        <div class="problem-box">
+                            <h4>DESAFIO:</h4>
+                            <p>Bloco em plano de 30º. Calcule a força paralela: Px = P ⋅ sen(30º).</p>
+                        </div>
+                        <div class="video-links">
+                            <a href="https://www.youtube.com/watch?v=SRE_5B9nI0I" target="_blank" class="video-btn">▶ Aula: Decomposição Vetores</a>
                         </div>
                     </div>
                     
                     <div class="topic-card">
-                        <div class="formula-box" id="f-circ"></div>
-                        <div class="bullet-points">
-                            <p><strong>Círculo Trigonométrico:</strong> Entenda a conversão de Graus para Radianos.</p>
-                            <p><strong>Aplicação:</strong> Movimento Circular e Ondas (MHS).</p>
+                        <div class="formula-box" id="f-circle"></div>
+                        <p style="font-size:0.8rem; opacity:0.8;">Ondas e Movimento Circular.</p>
+                        <div class="video-links">
+                            <a href="https://www.youtube.com/watch?v=t_Uj1hM_yL0" target="_blank" class="video-btn">▶ Aula: Círculo Unitário</a>
+                            <a href="https://www.youtube.com/watch?v=S-k8_S93S9k" target="_blank" class="video-btn">★ Walter Lewin: Aula 01</a>
                         </div>
                     </div>
                     
@@ -140,15 +128,14 @@ function renderModule() {
             </div>
         </div>`;
     
-    // Renderização das Fórmulas de Consulta
-    katex.render("S = S_0 + vt \\quad (y = ax + b)", document.getElementById('f-linear'));
-    katex.render("S = S_0 + v_0t + \\frac{at^2}{2}", document.getElementById('f-quad'));
-    katex.render("\\sin \\theta = \\frac{O}{H} \\quad \\cos \\theta = \\frac{A}{H}", document.getElementById('f-trig'));
-    katex.render("180^\\circ = \\pi \\text{ rad}", document.getElementById('f-circ'));
+    // Renderização das Fórmulas
+    katex.render("S = S_0 + v \\cdot t", document.getElementById('f-linear'));
+    katex.render("S = v_0 t + \\frac{a t^2}{2}", document.getElementById('f-quad'));
+    katex.render("\\sin = \\frac{O}{H} \\mid \\cos = \\frac{A}{H}", document.getElementById('f-trig'));
+    katex.render("2\\pi \\text{ rad} = 360^\\circ", document.getElementById('f-circle'));
 }
 
-window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-});
+window.onload = () => {
+    katex.render("E = mc^2", document.getElementById('float-1'));
+    katex.render("F = G\\frac{m_1 m_2}{r^2}", document.getElementById('float-2'));
+};
