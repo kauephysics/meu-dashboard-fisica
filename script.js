@@ -5,15 +5,14 @@ const renderer = new THREE.WebGLRenderer({alpha: true});
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.getElementById('canvas-container').appendChild(renderer.domElement);
 
-const starGeo = new THREE.BufferGeometry();
 const starPos = [];
 for(let i=0; i<3000; i++) starPos.push(THREE.MathUtils.randFloatSpread(2000), THREE.MathUtils.randFloatSpread(2000), THREE.MathUtils.randFloatSpread(2000));
-starGeo.setAttribute('position', new THREE.Float32BufferAttribute(starPos, 3));
+const starGeo = new THREE.BufferGeometry().setAttribute('position', new THREE.Float32BufferAttribute(starPos, 3));
 const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({color: 0xffffff, size: 0.7}));
 scene.add(stars);
 camera.position.z = 1;
 
-// --- ÁTOMO 3D NO CARD ---
+// --- ÁTOMO 3D ---
 const atomScene = new THREE.Scene();
 const atomCam = new THREE.PerspectiveCamera(45, 1.6, 0.1, 100);
 const atomRenderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
@@ -34,7 +33,7 @@ function animate() {
 }
 animate();
 
-// --- CONTROLE DE TRANSIÇÃO ---
+// --- SISTEMA DE TELAS ---
 function triggerComet(dest) {
     document.getElementById('comet-transition').classList.add('comet-active');
     setTimeout(() => {
@@ -55,32 +54,45 @@ function handleCard3D(e) {
 }
 function resetCard3D() { document.getElementById('main-card').style.transform = 'rotateX(0deg) rotateY(0deg)'; }
 
-// --- RENDERIZAÇÃO DOS PROBLEMAS ---
+// --- RENDERIZAÇÃO DOS PROBLEMAS E AULAS ---
 function renderModule() {
     const mod = document.getElementById('module-screen');
     mod.innerHTML = `
-        <div class="glass-main">
-            <button class="back-btn" onclick="triggerComet('home')">← VOLTAR</button>
+        <div class="glass-main" style="max-height: 90vh; overflow-y: auto;">
+            <header style="display:flex; justify-content:space-between; width:100%; align-items:center;">
+                <h2 style="font-family:'Orbitron'; color:var(--neon-blue);">REVISÃO ATIVA</h2>
+                <button class="back-btn" onclick="triggerComet('home')">← VOLTAR</button>
+            </header>
+            
             <div class="problem-grid">
                 <div class="problem-card">
                     <div id="m1" class="math-box"></div>
-                    <div class="problem-text"><strong>Drone:</strong> Parte de 10m a 5m/s. Em quanto tempo chega em 60m?</div>
+                    <p><strong>Drone:</strong> Parte de 10m a 5m/s. Em quanto tempo chega em 60m?</p>
+                    <div class="mini-aula">
+                        <strong>COMO USAR A FÓRMULA:</strong><br>
+                        1. <b>S</b> é onde quer chegar (60).<br>
+                        2. <b>S₀</b> é de onde partiu (10).<br>
+                        3. <b>v</b> é a velocidade (5).<br>
+                        A conta fica: 60 = 10 + 5t. Resolva para achar o tempo <b>t</b>.
+                    </div>
                 </div>
+
                 <div class="problem-card">
                     <div id="m2" class="math-box"></div>
-                    <div class="problem-text"><strong>Queda:</strong> Largado de 20m. Qual a velocidade ao atingir o solo? (g=10)</div>
-                </div>
-                <div class="problem-card">
-                    <div id="m3" class="math-box"></div>
-                    <div class="problem-text"><strong>Plano:</strong> Bloco em 30°. Calcule a componente Px (Peso = 100N).</div>
+                    <p><strong>Plano Inclinado:</strong> Bloco de 100N em 30°. Calcule a força Px.</p>
+                    <div class="mini-aula">
+                        <strong>COMO USAR A FÓRMULA:</strong><br>
+                        1. <b>P</b> é o Peso (100N).<br>
+                        2. <b>sen(θ)</b> é o seno do ângulo (sen 30° = 0.5).<br>
+                        3. Multiplique: Px = 100 × 0.5.<br>
+                        O resultado é a força que "puxa" o bloco ladeira abaixo.
+                    </div>
                 </div>
             </div>
         </div>`;
     
-    // O KaTeX agora renderiza apenas na div 'math-box', mantendo o texto seguro
     katex.render("S = S_0 + v \\cdot t", document.getElementById('m1'));
-    katex.render("v^2 = v_0^2 + 2g\\Delta h", document.getElementById('m2'));
-    katex.render("P_x = P \\cdot \\sin(30^\\circ)", document.getElementById('m3'));
+    katex.render("P_x = P \\cdot \\sin(\\theta)", document.getElementById('m2'));
 }
 
 function renderHomeMath() {
