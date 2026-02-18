@@ -1,4 +1,4 @@
-// --- ESTRELAS DE FUNDO ---
+// --- FUNDO DE ESTRELAS ---
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({alpha: true});
@@ -22,27 +22,37 @@ function animate() {
 }
 animate();
 
-// --- LÓGICA DE TRANSIÇÃO COMETA ---
+// --- SISTEMA DE TRANSIÇÃO (COMETA + SONS) ---
 function triggerComet(id) {
     const comet = document.getElementById('comet-transition');
+    const effectIframe = document.getElementById('comet-effect');
+    const musicIframe = document.getElementById('video-music');
+
+    // Ativa efeito visual
     comet.classList.add('comet-active');
 
-    // Toca a música a 20%
-    const iframe = document.getElementById('video-music');
-    if (iframe) {
-        iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-        iframe.contentWindow.postMessage('{"event":"command","func":"setVolume","args":[20]}', '*');
+    // Som da transição (YouTube)
+    if (effectIframe) {
+        effectIframe.contentWindow.postMessage('{"event":"command","func":"seekTo","args":[0, true]}', '*');
+        effectIframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
     }
 
-    // Troca a tela exatamente quando o cometa passa pelo meio (0.6s)
+    // Música de fundo a 20%
+    if (musicIframe) {
+        musicIframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+        musicIframe.contentWindow.postMessage('{"event":"command","func":"setVolume","args":[20]}', '*');
+    }
+
+    // Troca conteúdo no ápice do cometa
     setTimeout(() => {
         if(id === 'home') goHome();
         else goToModule(id);
     }, 600);
 
-    // Remove a classe para poder usar de novo
+    // Reset da animação
     setTimeout(() => {
         comet.classList.remove('comet-active');
+        effectIframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
     }, 1200);
 }
 
@@ -56,19 +66,17 @@ function goToModule(id) {
             <div class="dashboard-wrapper">
                 <button class="back-btn" onclick="triggerComet('home')">← VOLTAR</button>
                 <div class="content-block">
-                    <h2 style="color:var(--neon-blue); font-family:Orbitron;">REVISÃO MATEMÁTICA</h2>
+                    <h2 style="color:var(--neon-blue); font-family:'Kalnia Glaze';">Material de Revisão</h2>
                     <div style="display:grid; grid-template-columns: 1fr 1fr; gap:25px;">
                         <div>
                             <h4 style="color:var(--neon-blue)">Funções</h4>
                             <div class="formula-item">Linear: f(x) = ax + b</div>
                             <div class="formula-item">Quadrática: ax² + bx + c</div>
-                            <p style="font-size:0.8rem; margin-top:10px; opacity:0.7">Foque em como o gráfico se comporta perto do zero.</p>
                         </div>
                         <div>
                             <h4 style="color:var(--neon-blue)">Trigonometria</h4>
                             <div class="formula-item">sen²θ + cos²θ = 1</div>
                             <div class="formula-item">tgθ = senθ / cosθ</div>
-                            <p style="font-size:0.8rem; margin-top:10px; opacity:0.7">Essencial para decomposição de vetores em física 1.</p>
                         </div>
                     </div>
                 </div>
